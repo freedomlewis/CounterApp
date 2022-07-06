@@ -13,3 +13,5 @@ let appStore = Store(
     reducer: appReducer,
     environment: AppEnviroment()
 )
+
+struct AppEnviroment {}

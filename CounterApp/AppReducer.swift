@@ -13,8 +13,6 @@ enum AppAction: Equatable {
     case onDecBtnTapped
 }
 
-struct AppEnviroment {}
-
 let appReducer = Reducer<AppState, AppAction, AppEnviroment> { state, action, _ in
     switch action {
     case .onIncBtnTapped:
