@@ -10,19 +10,19 @@ import XCTest
 class CounterAppUITests: XCTestCase {
 
     func testCountDownAndUp() throws {
-        // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
         
-        let incBtn = app.staticTexts["Inc"]
-        let decBtn = app.staticTexts["Dec"]
+        let incBtn = app.buttons["Inc"]
+        let decBtn = app.buttons["Dec"]
         
         XCTAssert(incBtn.exists)
         XCTAssert(decBtn.exists)
         
         incBtn.tap()
+        XCTAssert(app.staticTexts["1"].waitForExistence(timeout: 0.5))
         
-        let countText = app.staticTexts["1"]
-        XCTAssert(countText.waitForExistence(timeout: 0.5))
+        decBtn.tap()
+        XCTAssert(app.staticTexts["0"].waitForExistence(timeout: 0.5))
     }
 }

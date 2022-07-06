@@ -24,16 +24,14 @@ struct RootView: View {
         VStack {
             Text("\(viewStore.count)").font(Font.title2)
             HStack {
-                Text("Inc")
-                    .padding()
-                    .onTapGesture {
-                        viewStore.send(.onIncBtnTapped)
-                    }
-                Text("Dec")
-                    .padding()
-                    .onTapGesture {
-                        viewStore.send(.onDecBtnTapped)
-                    }
+                Button("Inc") {
+                    viewStore.send(.onIncBtnTapped)
+                }.padding()
+                
+                Button("Dec"){
+                    viewStore.send(.onDecBtnTapped)
+                }.padding()
+                    
             }
             .font(Font.title)
             .foregroundColor(Color.blue)
