@@ -17,6 +17,7 @@
 		D6D9B83E287539CC00FB5FCD /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D6D9B83D287539CC00FB5FCD /* ComposableArchitecture */; };
 		D6D9B84028753EF600FB5FCD /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B83F28753EF600FB5FCD /* AppReducer.swift */; };
 		D6D9B842287544D900FB5FCD /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B841287544D900FB5FCD /* AppState.swift */; };
+		D6D9B844287579D700FB5FCD /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B843287579D700FB5FCD /* AppStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		D6D9B82F287534FE00FB5FCD /* CounterAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D6D9B83F28753EF600FB5FCD /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		D6D9B841287544D900FB5FCD /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		D6D9B843287579D700FB5FCD /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +104,9 @@
 			children = (
 				D6D9B812287534FD00FB5FCD /* CounterApp.swift */,
 				D6D9B814287534FD00FB5FCD /* CounterView.swift */,
-				D6D9B83F28753EF600FB5FCD /* AppReducer.swift */,
+				D6D9B843287579D700FB5FCD /* AppStore.swift */,
 				D6D9B841287544D900FB5FCD /* AppState.swift */,
+				D6D9B83F28753EF600FB5FCD /* AppReducer.swift */,
 				D6D9B816287534FE00FB5FCD /* Assets.xcassets */,
 				D6D9B818287534FE00FB5FCD /* Preview Content */,
 			);
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */,
+				D6D9B844287579D700FB5FCD /* AppStore.swift in Sources */,
 				D6D9B84028753EF600FB5FCD /* AppReducer.swift in Sources */,
 				D6D9B813287534FD00FB5FCD /* CounterApp.swift in Sources */,
 				D6D9B842287544D900FB5FCD /* AppState.swift in Sources */,

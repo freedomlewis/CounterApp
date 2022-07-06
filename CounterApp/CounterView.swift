@@ -13,23 +13,30 @@ struct CounterView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack {
-                Text("\(viewStore.count)").font(Font.title2)
-                HStack {
-                    Text("Inc")
-                        .padding()
-                        .onTapGesture {
-                            viewStore.send(.onIncBtnTapped)
-                        }
-                    Text("Dec")
-                        .padding()
-                        .onTapGesture {
-                            viewStore.send(.onDecBtnTapped)
-                        }
-                }
-                .font(Font.title)
-                .foregroundColor(Color.blue)
+            RootView(viewStore: viewStore)
+        }
+    }
+}
+
+struct RootView: View {
+    let viewStore: ViewStore<AppState, AppAction>
+    var body: some View {
+        VStack {
+            Text("\(viewStore.count)").font(Font.title2)
+            HStack {
+                Text("Inc")
+                    .padding()
+                    .onTapGesture {
+                        viewStore.send(.onIncBtnTapped)
+                    }
+                Text("Dec")
+                    .padding()
+                    .onTapGesture {
+                        viewStore.send(.onDecBtnTapped)
+                    }
             }
+            .font(Font.title)
+            .foregroundColor(Color.blue)
         }
     }
 }
