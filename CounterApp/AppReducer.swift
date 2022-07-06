@@ -26,3 +26,5 @@ let appReducer = Reducer<AppState, AppAction, AppEnviroment> { state, action, _ 
 
     return .none
 }
+.debug()
+.signpost()
