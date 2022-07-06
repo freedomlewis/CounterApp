@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D6D9B813287534FD00FB5FCD /* CounterAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B812287534FD00FB5FCD /* CounterAppApp.swift */; };
-		D6D9B815287534FD00FB5FCD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B814287534FD00FB5FCD /* ContentView.swift */; };
+		D6D9B813287534FD00FB5FCD /* CounterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B812287534FD00FB5FCD /* CounterApp.swift */; };
+		D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B814287534FD00FB5FCD /* CounterView.swift */; };
 		D6D9B817287534FE00FB5FCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6D9B816287534FE00FB5FCD /* Assets.xcassets */; };
 		D6D9B81A287534FE00FB5FCD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6D9B819287534FE00FB5FCD /* Preview Assets.xcassets */; };
 		D6D9B824287534FE00FB5FCD /* CounterAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B823287534FE00FB5FCD /* CounterAppTests.swift */; };
 		D6D9B82E287534FE00FB5FCD /* CounterAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B82D287534FE00FB5FCD /* CounterAppUITests.swift */; };
 		D6D9B830287534FE00FB5FCD /* CounterAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B82F287534FE00FB5FCD /* CounterAppUITestsLaunchTests.swift */; };
+		D6D9B83E287539CC00FB5FCD /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D6D9B83D287539CC00FB5FCD /* ComposableArchitecture */; };
+		D6D9B84028753EF600FB5FCD /* CounterReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B83F28753EF600FB5FCD /* CounterReducer.swift */; };
+		D6D9B842287544D900FB5FCD /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B841287544D900FB5FCD /* AppState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +38,8 @@
 
 /* Begin PBXFileReference section */
 		D6D9B80F287534FD00FB5FCD /* CounterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CounterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6D9B812287534FD00FB5FCD /* CounterAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterAppApp.swift; sourceTree = "<group>"; };
-		D6D9B814287534FD00FB5FCD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D6D9B812287534FD00FB5FCD /* CounterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterApp.swift; sourceTree = "<group>"; };
+		D6D9B814287534FD00FB5FCD /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		D6D9B816287534FE00FB5FCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D6D9B819287534FE00FB5FCD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D6D9B81F287534FE00FB5FCD /* CounterAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CounterAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +47,8 @@
 		D6D9B829287534FE00FB5FCD /* CounterAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CounterAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D9B82D287534FE00FB5FCD /* CounterAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterAppUITests.swift; sourceTree = "<group>"; };
 		D6D9B82F287534FE00FB5FCD /* CounterAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D6D9B83F28753EF600FB5FCD /* CounterReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterReducer.swift; sourceTree = "<group>"; };
+		D6D9B841287544D900FB5FCD /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6D9B83E287539CC00FB5FCD /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,8 +100,10 @@
 		D6D9B811287534FD00FB5FCD /* CounterApp */ = {
 			isa = PBXGroup;
 			children = (
-				D6D9B812287534FD00FB5FCD /* CounterAppApp.swift */,
-				D6D9B814287534FD00FB5FCD /* ContentView.swift */,
+				D6D9B812287534FD00FB5FCD /* CounterApp.swift */,
+				D6D9B814287534FD00FB5FCD /* CounterView.swift */,
+				D6D9B83F28753EF600FB5FCD /* CounterReducer.swift */,
+				D6D9B841287544D900FB5FCD /* AppState.swift */,
 				D6D9B816287534FE00FB5FCD /* Assets.xcassets */,
 				D6D9B818287534FE00FB5FCD /* Preview Content */,
 			);
@@ -143,6 +151,9 @@
 			dependencies = (
 			);
 			name = CounterApp;
+			packageProductDependencies = (
+				D6D9B83D287539CC00FB5FCD /* ComposableArchitecture */,
+			);
 			productName = CounterApp;
 			productReference = D6D9B80F287534FD00FB5FCD /* CounterApp.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +226,9 @@
 				Base,
 			);
 			mainGroup = D6D9B806287534FD00FB5FCD;
+			packageReferences = (
+				D6D9B83C287539CC00FB5FCD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = D6D9B810287534FD00FB5FCD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,8 +271,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6D9B815287534FD00FB5FCD /* ContentView.swift in Sources */,
-				D6D9B813287534FD00FB5FCD /* CounterAppApp.swift in Sources */,
+				D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */,
+				D6D9B84028753EF600FB5FCD /* CounterReducer.swift in Sources */,
+				D6D9B813287534FD00FB5FCD /* CounterApp.swift in Sources */,
+				D6D9B842287544D900FB5FCD /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +601,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D6D9B83C287539CC00FB5FCD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D6D9B83D287539CC00FB5FCD /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6D9B83C287539CC00FB5FCD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D6D9B807287534FD00FB5FCD /* Project object */;
 }
