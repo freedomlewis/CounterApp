@@ -13,29 +13,38 @@ struct CounterView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            RootView(viewStore: viewStore)
+            DisplayAndNavigateView(viewStore: viewStore)
         }
     }
 }
 
-struct RootView: View {
+struct DisplayAndNavigateView: View {
+    let viewStore: ViewStore<AppState, AppAction>
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text("\(viewStore.count)").font(Font.title2).padding()
+                NavigationLink("Goto edit page", destination: EditorView(viewStore: viewStore))
+            }
+        }
+    }
+}
+
+struct EditorView: View {
     let viewStore: ViewStore<AppState, AppAction>
     var body: some View {
-        VStack {
-            Text("\(viewStore.count)").font(Font.title2)
-            HStack {
-                Button("Inc") {
-                    viewStore.send(.onIncBtnTapped)
-                }.padding()
-                
-                Button("Dec"){
-                    viewStore.send(.onDecBtnTapped)
-                }.padding()
-                    
-            }
-            .font(Font.title)
-            .foregroundColor(Color.blue)
+        HStack {
+            Button("Inc") {
+                viewStore.send(.onIncBtnTapped)
+            }.padding()
+
+            Button("Dec") {
+                viewStore.send(.onDecBtnTapped)
+            }.padding()
         }
+        .font(Font.title)
+        .foregroundColor(Color.blue)
     }
 }
 
