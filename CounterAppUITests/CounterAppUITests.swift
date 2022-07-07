@@ -13,11 +13,14 @@ class CounterAppUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         
+        let navigationBtn = app.buttons["Goto edit page"]
+        navigationBtn.tap()
+                
         let incBtn = app.buttons["Inc"]
         let decBtn = app.buttons["Dec"]
         
-        XCTAssert(incBtn.exists)
-        XCTAssert(decBtn.exists)
+        XCTAssert(incBtn.waitForExistence(timeout: 0.5))
+        XCTAssert(decBtn.waitForExistence(timeout: 0.5))
         
         incBtn.tap()
         XCTAssert(app.staticTexts["1"].waitForExistence(timeout: 0.5))

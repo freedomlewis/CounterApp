@@ -1,8 +1,8 @@
 //
-//  CounterAppTests.swift
+//  AppReducerTests.swift
 //  CounterAppTests
 //
-//  Created by Wenjuan Li on 2022/7/6.
+//  Created by Wenjuan Li on 2022/7/7.
 //
 
 import ComposableArchitecture
@@ -11,15 +11,15 @@ import XCTest
 
 class AppReducerTests: XCTestCase {
 
-    let state = AppState()
+    let state = AppState(counter: CounterState())
 
     func testCountUpAndDown() throws {
         let store = TestStore(initialState: state, reducer: appReducer, environment: AppEnviroment())
-        store.send(.onIncBtnTapped) {
-            $0.count = 1
+        store.send(.counter(.onIncBtnTapped)) {
+            $0.counter.count = 1
         }
-        store.send(.onDecBtnTapped){
-            $0.count = 0
+        store.send(.counter(.onDecBtnTapped)){
+            $0.counter.count = 0
         }
     }
 
