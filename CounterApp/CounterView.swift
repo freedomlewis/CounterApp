@@ -10,13 +10,14 @@ import SwiftUI
 
 struct CounterState: Equatable {
     var count: Int = 0
-    var errorMsg: String?
+    var alertMsg: String?
 }
 
 enum CounterAction: Equatable {
     case onIncBtnTapped
     case onDecBtnTapped
     case counterResponse(Result<Int, ServiceError>)
+    case alertDismissed
 }
 
 struct ServiceError: Error, Equatable {
@@ -53,9 +54,16 @@ let counterReducer = Reducer<CounterState, CounterAction, CounterEnviroment> { s
         return .none
 
     case let .counterResponse(.failure(error)):
-        state.errorMsg = error.msg
+        state.alertMsg = error.msg
+        return .none
+    case .alertDismissed:
         return .none
     }
+}
+
+struct CounterAlert: Identifiable {
+    var title: String
+    var id: String { self.title }
 }
 
 struct CounterView: View {
@@ -76,7 +84,13 @@ struct CounterView: View {
                 }
                 .font(Font.title)
                 .foregroundColor(Color.blue)
-            }
+            }.alert(
+                item: viewStore.binding(
+                    get: { $0.alertMsg.map(CounterAlert.init(title:)) },
+                    send: .alertDismissed
+                ),
+                content: { Alert(title: Text($0.title).font(Font.title3)) }
+            )
         }
     }
 }
@@ -89,7 +103,7 @@ struct ContentView_Previews: PreviewProvider {
             environment: CounterEnviroment(
                 queue: DispatchQueue.main.eraseToAnyScheduler(),
                 increment: { _, _ in Effect(value: 1) },
-                decrement: { _, _ in Effect(value: 1) }
+                decrement: { _, _ in Effect(error: ServiceError(msg: "Dec failed: lower than min -10")) }
             )
         ))
     }
