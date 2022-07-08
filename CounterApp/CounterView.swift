@@ -10,27 +10,53 @@ import SwiftUI
 
 struct CounterState: Equatable {
     var count: Int = 0
+    var errorMsg: String?
 }
 
 enum CounterAction: Equatable {
     case onIncBtnTapped
     case onDecBtnTapped
+    case counterResponse(Result<Int, ServiceError>)
 }
 
-struct CounterEnviroment {}
+struct ServiceError: Error, Equatable {
+    var msg: String = "service error"
+}
 
-let counterReducer = Reducer<CounterState, CounterAction, CounterEnviroment> { state, action, _ in
+struct CounterEnviroment {
+    var queue: AnySchedulerOf<DispatchQueue>
+
+    // Takes a value and increments it by 1; Fails if result is greater than max.
+    var increment: (Int, Int) -> Effect<Int, ServiceError>
+
+    // Takes a value and decrements it by 1; Fails if result is lower than min.
+    var decrement: (Int, Int) -> Effect<Int, ServiceError>
+
+    static let MAX_VALUE = 10
+    static let MIN_VALUE = -10
+}
+
+let counterReducer = Reducer<CounterState, CounterAction, CounterEnviroment> { state, action, env in
     switch action {
     case .onIncBtnTapped:
-        state.count += 1
+        return env.increment(state.count, CounterEnviroment.MAX_VALUE)
+            .receive(on: env.queue)
+            .catchToEffect(CounterAction.counterResponse)
 
     case .onDecBtnTapped:
-        state.count -= 1
+        return env.decrement(state.count, CounterEnviroment.MIN_VALUE)
+            .receive(on: env.queue)
+            .catchToEffect(CounterAction.counterResponse)
+
+    case let .counterResponse(.success(result)):
+        state.count = result
+        return .none
+
+    case let .counterResponse(.failure(error)):
+        state.errorMsg = error.msg
+        return .none
     }
-
-    return .none
 }
-
 
 struct CounterView: View {
     let store: Store<CounterState, CounterAction>
@@ -43,7 +69,7 @@ struct CounterView: View {
                     Button("Inc") {
                         viewStore.send(.onIncBtnTapped)
                     }.padding()
-                    
+
                     Button("Dec") {
                         viewStore.send(.onDecBtnTapped)
                     }.padding()
@@ -60,7 +86,11 @@ struct ContentView_Previews: PreviewProvider {
         CounterView(store: Store(
             initialState: CounterState(),
             reducer: counterReducer,
-            environment: CounterEnviroment()
+            environment: CounterEnviroment(
+                queue: DispatchQueue.main.eraseToAnyScheduler(),
+                increment: { _, _ in Effect(value: 1) },
+                decrement: { _, _ in Effect(value: 1) }
+            )
         ))
     }
 }

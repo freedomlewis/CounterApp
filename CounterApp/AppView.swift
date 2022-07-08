@@ -17,15 +17,32 @@ enum AppAction: Equatable {
     case counter(CounterAction)
 }
 
-struct AppEnviroment {}
+struct AppEnviroment {
+    let counterEnv = CounterEnviroment(
+        queue: DispatchQueue.main.eraseToAnyScheduler(),
+        increment: { value, max in
+            if value < max {
+                return Effect(value: value + 1)
+            } else {
+                return Effect(error: ServiceError(msg: "Increment failed for its value exceed the max \(max)"))
+            }
+        }, decrement: { value, min -> Effect<Int, ServiceError> in
+            if value > min {
+                return Effect(value: value - 1)
+            } else {
+                return Effect(error: ServiceError(msg: "Decrement falied for its value will little than the min \(min)"))
+            }
+        }
+    )
+}
 
 let appReducer: Reducer<AppState, AppAction, AppEnviroment> = .combine(
     counterReducer.pullback(
         state: \AppState.counter,
         action: /AppAction.counter,
-        environment: { _ in CounterEnviroment() }
+        environment: { env in env.counterEnv }
     )
-)
+).debug()
 
 struct AppView: View {
     let store = Store(
@@ -33,7 +50,7 @@ struct AppView: View {
         reducer: appReducer,
         environment: AppEnviroment()
     )
-    
+
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
