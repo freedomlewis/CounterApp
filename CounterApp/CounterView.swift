@@ -56,7 +56,9 @@ let counterReducer = Reducer<CounterState, CounterAction, CounterEnviroment> { s
     case let .counterResponse(.failure(error)):
         state.alertMsg = error.msg
         return .none
+        
     case .alertDismissed:
+        state.alertMsg = nil
         return .none
     }
 }

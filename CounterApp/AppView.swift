@@ -59,7 +59,7 @@ struct AppView: View {
                     NavigationLink("Goto edit page", destination: CounterView(store: self.store.scope(
                         state: \.counter,
                         action: AppAction.counter
-                    )))
+                    ))).font(Font.title2)
                 }
             }
         }
