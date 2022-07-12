@@ -26,12 +26,18 @@ struct AppView: View {
                         Text("Show Lock View")
                     }.padding()
                 }.font(Font.title2)
-            }.sheet(isPresented: viewStore.binding(get: \.isPresented, send: AppAction.setSheet(isPresented:))) {
-                LockView(store: Store(
-                    initialState: LockState(),
-                    reducer: lockReducer,
-                    environment: LockEnvironment()
-                ))
+            }.sheet(
+                isPresented: viewStore.binding(
+                    get: \.isPresented,
+                    send: AppAction.setSheet(isPresented:)
+                )
+            ) {
+                LockView(
+                    store: self.store.scope(
+                        state: { appState in appState.lock },
+                        action: { localAction in AppAction.lock(localAction) }
+                    )
+                )
             }
         }
     }

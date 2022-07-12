@@ -12,7 +12,7 @@ struct LockState: Equatable {
     var counters: IdentifiedArrayOf<CounterState> = []
 }
 
-enum LockAction {
+enum LockAction: Equatable {
     case counter(id: CounterState.ID, action: CounterAction)
 }
 

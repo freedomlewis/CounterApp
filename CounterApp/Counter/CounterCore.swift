@@ -34,8 +34,8 @@ struct CounterEnviroment {
     // Takes a value and decrements it by 1; Fails if result is lower than min.
     var decrement: (Int, Int) -> Effect<Int, ServiceError>
 
-    static let MAX_VALUE = 5
-    static let MIN_VALUE = -5
+    static let MAX_VALUE = 9
+    static let MIN_VALUE = 0
     
     static func defaultEnv() -> CounterEnviroment {
         CounterEnviroment(
