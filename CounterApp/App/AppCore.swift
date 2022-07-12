@@ -11,13 +11,11 @@ import Foundation
 struct AppState: Equatable {
     var counter: CounterState
     var lock: LockState
-    var isShowLockView: Bool = false
 }
 
 enum AppAction: Equatable {
     case counter(CounterAction)
     case lock(LockAction)
-    case setSheet(isPresented: Bool)
 }
 
 struct AppEnviroment {}
@@ -33,12 +31,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnviroment>.combine(
         action: /AppAction.lock,
         environment: { _ in LockEnvironment() }
     ),
-    Reducer { state, action, _ in
+    Reducer { _, action, _ in
         switch action {
-        case let .setSheet(isPresented):
-            state.isShowLockView = isPresented
-            return .none
-
         default:
             return .none
         }

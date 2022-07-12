@@ -22,14 +22,18 @@ struct AppView: View {
                         action: { localAction in AppAction.counter(localAction) }
                     )))
 
-                    Button(action: { viewStore.send(.setSheet(isPresented: true)) }) {
+                    Button(action: {
+                        viewStore.send(.lock(LockAction.setSheet(isPresented: true)))
+                    }) {
                         Text("Show Lock View")
                     }.padding()
                 }.font(Font.title2)
             }.sheet(
                 isPresented: viewStore.binding(
-                    get: \.isPresented,
-                    send: AppAction.setSheet(isPresented:)
+                    get: \.isShowLockView,
+                    send: { localState in
+                        AppAction.lock(LockAction.setSheet(isPresented: localState))
+                    }
                 )
             ) {
                 LockView(
@@ -46,13 +50,16 @@ struct AppView: View {
 extension AppView {
     struct ViewState: Equatable {
         var counter: String
-        var isPresented: Bool
+        var isShowLockView: Bool
     }
 }
 
 extension AppState {
     var viewState: AppView.ViewState {
-        .init(counter: "\(counter.count)", isPresented: isShowLockView)
+        .init(
+            counter: "\(counter.count)",
+            isShowLockView: lock.isPresent
+        )
     }
 }
 
