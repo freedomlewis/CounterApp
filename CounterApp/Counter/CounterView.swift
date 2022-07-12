@@ -21,7 +21,10 @@ struct CounterView: View {
                 }
                 .font(Font.title)
                 .foregroundColor(Color.blue)
-            }.alert(self.store.scope(state: \.alert), dismiss: .alertDismissed)
+            }.alert(
+                self.store.scope(state: \.alert),
+                dismiss: .alertDismissed
+            )
         }
     }
 }

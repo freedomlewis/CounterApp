@@ -14,18 +14,28 @@ struct LockView: View {
     var body: some View {
         VStack {
             ForEachStore(
-                self.store.scope(state: \.counters, action: LockAction.counter(id:action:))
+                self.store.scope(
+                    state: \.counters,
+                    action: LockAction.counter(id:action:)
+                )
             ) { counterStore in
                 CounterView(store: counterStore)
             }
-        }
+        }.alert(
+            self.store.scope(state: \.unlockAlert),
+            dismiss: .alertDismissed
+        )
     }
 }
 
 struct LockView_Previews: PreviewProvider {
     static var previews: some View {
         LockView(store: Store(
-            initialState: LockState(counters: [CounterState(), CounterState(), CounterState()]),
+            initialState: LockState(
+                counters: [CounterState(),
+                           CounterState(),
+                           CounterState()]
+            ),
             reducer: lockReducer,
             environment: LockEnvironment()
         ))
