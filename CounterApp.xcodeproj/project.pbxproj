@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D65F942828771735003F6705 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F942728771735003F6705 /* AppView.swift */; };
 		D6BCE3C1287D19EA000660FA /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BCE3C0287D19EA000660FA /* AppCore.swift */; };
+		D6BCE3C3287D3374000660FA /* CounterCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BCE3C2287D3374000660FA /* CounterCore.swift */; };
 		D6D9B813287534FD00FB5FCD /* CounterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B812287534FD00FB5FCD /* CounterApp.swift */; };
 		D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B814287534FD00FB5FCD /* CounterView.swift */; };
 		D6D9B817287534FE00FB5FCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6D9B816287534FE00FB5FCD /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		D65F942728771735003F6705 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		D6BCE3C0287D19EA000660FA /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
+		D6BCE3C2287D3374000660FA /* CounterCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCore.swift; sourceTree = "<group>"; };
 		D6D9B80F287534FD00FB5FCD /* CounterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CounterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D9B812287534FD00FB5FCD /* CounterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterApp.swift; sourceTree = "<group>"; };
 		D6D9B814287534FD00FB5FCD /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
@@ -77,6 +79,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D6BCE3C5287D346D000660FA /* Counter */ = {
+			isa = PBXGroup;
+			children = (
+				D6BCE3C2287D3374000660FA /* CounterCore.swift */,
+				D6D9B814287534FD00FB5FCD /* CounterView.swift */,
+			);
+			path = Counter;
+			sourceTree = "<group>";
+		};
+		D6BCE3C6287D3477000660FA /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D6BCE3C0287D19EA000660FA /* AppCore.swift */,
+				D65F942728771735003F6705 /* AppView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		D6D9B806287534FD00FB5FCD = {
 			isa = PBXGroup;
 			children = (
@@ -101,9 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				D6D9B812287534FD00FB5FCD /* CounterApp.swift */,
-				D6BCE3C0287D19EA000660FA /* AppCore.swift */,
-				D65F942728771735003F6705 /* AppView.swift */,
-				D6D9B814287534FD00FB5FCD /* CounterView.swift */,
+				D6BCE3C6287D3477000660FA /* App */,
+				D6BCE3C5287D346D000660FA /* Counter */,
 				D6D9B816287534FE00FB5FCD /* Assets.xcassets */,
 				D6D9B818287534FE00FB5FCD /* Preview Content */,
 			);
@@ -273,6 +292,7 @@
 			files = (
 				D65F942828771735003F6705 /* AppView.swift in Sources */,
 				D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */,
+				D6BCE3C3287D3374000660FA /* CounterCore.swift in Sources */,
 				D6BCE3C1287D19EA000660FA /* AppCore.swift in Sources */,
 				D6D9B813287534FD00FB5FCD /* CounterApp.swift in Sources */,
 			);
