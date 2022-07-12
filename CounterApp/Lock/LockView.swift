@@ -37,7 +37,7 @@ struct LockView_Previews: PreviewProvider {
                            CounterState()]
             ),
             reducer: lockReducer,
-            environment: LockEnvironment()
+            environment: LockEnvironment.defaultEnv()
         ))
     }
 }

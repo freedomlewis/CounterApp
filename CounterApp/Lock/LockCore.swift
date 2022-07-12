@@ -21,6 +21,16 @@ enum LockAction: Equatable {
 }
 
 struct LockEnvironment {
+    var tryToUnlock: (IdentifiedArrayOf<CounterState>) -> Bool
+
+    static func defaultEnv() -> LockEnvironment {
+        LockEnvironment(tryToUnlock: { counters in
+            counters.count == 3
+                && counters[0].count == 9
+                && counters[1].count == 5
+                && counters[2].count == 7
+        })
+    }
 }
 
 let lockReducer: Reducer<LockState, LockAction, LockEnvironment> =
@@ -28,25 +38,23 @@ let lockReducer: Reducer<LockState, LockAction, LockEnvironment> =
         state: \.counters,
         action: /LockAction.counter(id:action:),
         environment: { _ in CounterEnviroment.defaultEnv() }
-    ).combined(with: Reducer { state, action, _ in
+    ).combined(with: Reducer { state, action, env in
         switch action {
         case let .setSheet(isPresented):
             state.isPresent = isPresented
             return .none
-        
-        case .counter:
-            let counters = state.counters
-            if counters.count == 3
-            && counters[0].count == 9
-            && counters[1].count == 5
-            && counters[2].count == 7 {
+
+        case let .counter(id: id, action: .counterResponse(.success(value))):
+            if env.tryToUnlock(state.counters) {
                 state.unlockAlert = .init(title: .init("Unlocked!"))
-            }else {
-                state.unlockAlert = nil
             }
             return .none
+
         case .alertDismissed:
             state.unlockAlert = nil
+            return .none
+
+        default:
             return .none
         }
     })

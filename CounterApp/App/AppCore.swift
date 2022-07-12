@@ -29,7 +29,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnviroment>.combine(
     lockReducer.pullback(
         state: \AppState.lock,
         action: /AppAction.lock,
-        environment: { _ in LockEnvironment() }
+        environment: { _ in LockEnvironment.defaultEnv() }
     ),
     Reducer { _, action, _ in
         switch action {
