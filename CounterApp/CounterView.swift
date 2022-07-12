@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CounterState: Equatable {
     var count: Int = 0
-    var alertMsg: String?
+    var alert: AlertState<CounterAction>?
 }
 
 enum CounterAction: Equatable {
@@ -33,8 +33,8 @@ struct CounterEnviroment {
     // Takes a value and decrements it by 1; Fails if result is lower than min.
     var decrement: (Int, Int) -> Effect<Int, ServiceError>
 
-    static let MAX_VALUE = 10
-    static let MIN_VALUE = -10
+    static let MAX_VALUE = 5
+    static let MIN_VALUE = -5
 }
 
 let counterReducer = Reducer<CounterState, CounterAction, CounterEnviroment> { state, action, env in
@@ -54,11 +54,11 @@ let counterReducer = Reducer<CounterState, CounterAction, CounterEnviroment> { s
         return .none
 
     case let .counterResponse(.failure(error)):
-        state.alertMsg = error.msg
+        state.alert = .init(title: .init(error.msg))
         return .none
-        
+
     case .alertDismissed:
-        state.alertMsg = nil
+        state.alert = nil
         return .none
     }
 }
@@ -86,13 +86,7 @@ struct CounterView: View {
                 }
                 .font(Font.title)
                 .foregroundColor(Color.blue)
-            }.alert(
-                item: viewStore.binding(
-                    get: { $0.alertMsg.map(CounterAlert.init(title:)) },
-                    send: .alertDismissed
-                ),
-                content: { Alert(title: Text($0.title).font(Font.title3)) }
-            )
+            }.alert(self.store.scope(state: \.alert), dismiss: .alertDismissed)
         }
     }
 }
