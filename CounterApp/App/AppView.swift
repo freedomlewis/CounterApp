@@ -27,7 +27,11 @@ struct AppView: View {
                     }.padding()
                 }.font(Font.title2)
             }.sheet(isPresented: viewStore.binding(get: \.isPresented, send: AppAction.setSheet(isPresented:))) {
-                LockView()
+                LockView(store: Store(
+                    initialState: LockState(),
+                    reducer: lockReducer,
+                    environment: LockEnvironment()
+                ))
             }
         }
     }
