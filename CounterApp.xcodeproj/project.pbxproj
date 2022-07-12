@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D65F942828771735003F6705 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F942728771735003F6705 /* AppView.swift */; };
+		D685090E287D7C0F00C0174C /* LockCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D685090D287D7C0F00C0174C /* LockCore.swift */; };
 		D6BCE3C1287D19EA000660FA /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BCE3C0287D19EA000660FA /* AppCore.swift */; };
 		D6BCE3C3287D3374000660FA /* CounterCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BCE3C2287D3374000660FA /* CounterCore.swift */; };
 		D6BCE3C8287D61AA000660FA /* LockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BCE3C7287D61AA000660FA /* LockView.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		D65F942728771735003F6705 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		D685090D287D7C0F00C0174C /* LockCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockCore.swift; sourceTree = "<group>"; };
 		D6BCE3C0287D19EA000660FA /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
 		D6BCE3C2287D3374000660FA /* CounterCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCore.swift; sourceTree = "<group>"; };
 		D6BCE3C7287D61AA000660FA /* LockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 		D6BCE3C9287D61D6000660FA /* Lock */ = {
 			isa = PBXGroup;
 			children = (
+				D685090D287D7C0F00C0174C /* LockCore.swift */,
 				D6BCE3C7287D61AA000660FA /* LockView.swift */,
 			);
 			path = Lock;
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D65F942828771735003F6705 /* AppView.swift in Sources */,
+				D685090E287D7C0F00C0174C /* LockCore.swift in Sources */,
 				D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */,
 				D6BCE3C3287D3374000660FA /* CounterCore.swift in Sources */,
 				D6BCE3C1287D19EA000660FA /* AppCore.swift in Sources */,
