@@ -42,3 +42,9 @@ let appReducer: Reducer<AppState, AppAction, AppEnviroment> = .combine(
         environment: { env in env.counterEnv }
     )
 ).debug()
+
+let appStore = Store(
+    initialState: AppState(counter: CounterState()),
+    reducer: appReducer,
+    environment: AppEnviroment()
+)

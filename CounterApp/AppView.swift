@@ -10,20 +10,16 @@ import StoreKit
 import SwiftUI
 
 struct AppView: View {
-    let store = Store(
-        initialState: AppState(counter: CounterState()),
-        reducer: appReducer,
-        environment: AppEnviroment()
-    )
-
+    let store: Store<AppState, AppAction>
+    
     var body: some View {
-        WithViewStore(store) { viewStore in
+        WithViewStore(store.scope(state: \.viewState)) { viewStore in
             NavigationView {
                 VStack {
-                    Text("\(viewStore.counter.count)").font(Font.title2).padding()
+                    Text("\(viewStore.counter)").font(Font.title2).padding()
                     NavigationLink("Goto edit page", destination: CounterView(store: self.store.scope(
-                        state: \.counter,
-                        action: AppAction.counter
+                        state: { appState in appState.counter },
+                        action: { localAction in AppAction.counter(localAction) }
                     ))).font(Font.title2)
                 }
             }
@@ -31,8 +27,20 @@ struct AppView: View {
     }
 }
 
+extension AppView {
+    struct ViewState: Equatable {
+        var counter: String
+    }
+}
+
+extension AppState {
+    var viewState: AppView.ViewState {
+        .init(counter: "\(counter.count)")
+    }
+}
+
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
-        AppView()
+        AppView(store: appStore)
     }
 }
