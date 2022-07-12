@@ -11,7 +11,7 @@ import SwiftUI
 
 struct AppView: View {
     let store: Store<AppState, AppAction>
-    
+
     var body: some View {
         WithViewStore(store.scope(state: \.viewState)) { viewStore in
             NavigationView {
@@ -20,8 +20,14 @@ struct AppView: View {
                     NavigationLink("Goto edit page", destination: CounterView(store: self.store.scope(
                         state: { appState in appState.counter },
                         action: { localAction in AppAction.counter(localAction) }
-                    ))).font(Font.title2)
-                }
+                    )))
+
+                    Button(action: { viewStore.send(.setSheet(isPresented: true)) }) {
+                        Text("Show Lock View")
+                    }.padding()
+                }.font(Font.title2)
+            }.sheet(isPresented: viewStore.binding(get: \.isPresented, send: AppAction.setSheet(isPresented:))) {
+                LockView()
             }
         }
     }
@@ -30,12 +36,13 @@ struct AppView: View {
 extension AppView {
     struct ViewState: Equatable {
         var counter: String
+        var isPresented: Bool
     }
 }
 
 extension AppState {
     var viewState: AppView.ViewState {
-        .init(counter: "\(counter.count)")
+        .init(counter: "\(counter.count)", isPresented: isShowLockView)
     }
 }
 

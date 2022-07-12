@@ -8,7 +8,8 @@
 import ComposableArchitecture
 import Foundation
 
-struct CounterState: Equatable {
+struct CounterState: Equatable, Identifiable {
+    var id: UUID = UUID()
     var count: Int = 0
     var alert: AlertState<CounterAction>?
 }
