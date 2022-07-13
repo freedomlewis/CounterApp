@@ -21,7 +21,8 @@ struct LockView: View {
             ) { counterStore in
                 CounterView(store: counterStore)
             }
-        }.alert(
+        }
+        .alert(
             self.store.scope(state: \.unlockAlert),
             dismiss: .alertDismissed
         )

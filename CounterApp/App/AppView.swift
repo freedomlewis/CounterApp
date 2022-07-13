@@ -16,19 +16,26 @@ struct AppView: View {
         WithViewStore(store.scope(state: \.viewState)) { viewStore in
             NavigationView {
                 VStack {
-                    Text("\(viewStore.counter)").font(Font.title2).padding()
-                    NavigationLink("Goto edit page", destination: CounterView(store: self.store.scope(
-                        state: { appState in appState.counter },
-                        action: { localAction in AppAction.counter(localAction) }
-                    )))
+                    Text("\(viewStore.counter)")
 
-                    Button(action: {
+                    NavigationLink(
+                        "Goto edit page",
+                        destination: CounterView(
+                            store: self.store.scope(
+                                state: { appState in appState.counter },
+                                action: { localAction in AppAction.counter(localAction) }
+                            )
+                        )
+                    )
+                    .padding()
+
+                    Button("Show Lock View") {
                         viewStore.send(.lock(LockAction.setSheet(isPresented: true)))
-                    }) {
-                        Text("Show Lock View")
-                    }.padding()
-                }.font(Font.title2)
-            }.sheet(
+                    }
+                }
+                .font(Font.title2)
+            }
+            .sheet(
                 isPresented: viewStore.binding(
                     get: \.isShowLockView,
                     send: { localState in
