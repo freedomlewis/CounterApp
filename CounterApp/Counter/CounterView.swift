@@ -13,15 +13,13 @@ struct CounterView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack {
-                Text("\(viewStore.count)").font(Font.title2)
-                HStack {
-                    Button("Inc") { viewStore.send(.onIncBtnTapped) }.padding()
-                    Button("Dec") { viewStore.send(.onDecBtnTapped) }.padding()
-                }
-                .font(Font.title)
-                .foregroundColor(Color.blue)
-            }.alert(
+            HStack {
+                Button("Inc") { viewStore.send(.onIncBtnTapped) }.padding()
+                Text("\(viewStore.count)").font(Font.title2).foregroundColor(Color.black)
+                Button("Dec") { viewStore.send(.onDecBtnTapped) }.padding()
+            }
+            .font(Font.title)
+            .alert(
                 self.store.scope(state: \.alert),
                 dismiss: .alertDismissed
             )
