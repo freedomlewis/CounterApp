@@ -50,13 +50,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnviroment>.combine(
         state: \.lock,
         action: /AppAction.lock,
         environment: \.lock
-    ),
-    Reducer { _, action, _ in
-        switch action {
-        default:
-            return .none
-        }
-    }
+    )
 ).debug()
 
 let appStore = Store(
