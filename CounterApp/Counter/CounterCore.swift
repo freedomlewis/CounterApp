@@ -36,25 +36,6 @@ struct CounterEnviroment {
 
     static let MAX_VALUE = 9
     static let MIN_VALUE = 0
-    
-    static func defaultEnv() -> CounterEnviroment {
-        CounterEnviroment(
-            queue: DispatchQueue.main.eraseToAnyScheduler(),
-            increment: { value, max in
-                if value < max {
-                    return Effect(value: value + 1)
-                } else {
-                    return Effect(error: ServiceError(msg: "Inc failed: greater than max \(max)"))
-                }
-            }, decrement: { value, min -> Effect<Int, ServiceError> in
-                if value > min {
-                    return Effect(value: value - 1)
-                } else {
-                    return Effect(error: ServiceError(msg: "Dec falied: lower than min \(min)"))
-                }
-            }
-        )
-    }
 }
 
 let counterReducer = Reducer<CounterState, CounterAction, CounterEnviroment> { state, action, env in

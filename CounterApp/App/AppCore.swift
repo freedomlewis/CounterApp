@@ -18,18 +18,38 @@ enum AppAction: Equatable {
     case lock(LockAction)
 }
 
-struct AppEnviroment {}
+struct AppEnviroment {
+    let counter = defaultCounterEnv
+    let lock = LockEnvironment(counter: defaultCounterEnv)
+    
+    private static let defaultCounterEnv = CounterEnviroment(
+        queue: DispatchQueue.main.eraseToAnyScheduler(),
+        increment: { value, max in
+            if value < max {
+                return Effect(value: value + 1)
+            } else {
+                return Effect(error: ServiceError(msg: "Inc failed: greater than max \(max)"))
+            }
+        }, decrement: { value, min -> Effect<Int, ServiceError> in
+            if value > min {
+                return Effect(value: value - 1)
+            } else {
+                return Effect(error: ServiceError(msg: "Dec falied: lower than min \(min)"))
+            }
+        }
+    )
+}
 
 let appReducer = Reducer<AppState, AppAction, AppEnviroment>.combine(
     counterReducer.pullback(
-        state: \AppState.counter,
+        state: \.counter,
         action: /AppAction.counter,
-        environment: { _ in CounterEnviroment.defaultEnv() }
+        environment: \.counter
     ),
     lockReducer.pullback(
-        state: \AppState.lock,
+        state: \.lock,
         action: /AppAction.lock,
-        environment: { _ in LockEnvironment.defaultEnv() }
+        environment: \.lock
     ),
     Reducer { _, action, _ in
         switch action {

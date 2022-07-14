@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LockView: View {
     let store: Store<LockState, LockAction>
-
+    
     var body: some View {
         VStack {
             ForEachStore(
@@ -38,7 +38,14 @@ struct LockView_Previews: PreviewProvider {
                            CounterState()]
             ),
             reducer: lockReducer,
-            environment: LockEnvironment.defaultEnv()
+            environment: LockEnvironment(counter: CounterEnviroment(
+                queue: DispatchQueue.main.eraseToAnyScheduler(),
+                increment: { value, _ in
+                    Effect(value: value + 1)
+                }, decrement: { value, _ -> Effect<Int, ServiceError> in
+                    Effect(value: value - 1)
+                }
+            ))
         ))
     }
 }
