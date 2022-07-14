@@ -38,15 +38,13 @@ struct AppView: View {
             .sheet(
                 isPresented: viewStore.binding(
                     get: \.isShowLockView,
-                    send: { localState in
-                        AppAction.lock(LockAction.setSheet(isPresented: localState))
-                    }
+                    send: { AppAction.lock(.setSheet(isPresented: $0)) }
                 )
             ) {
                 LockView(
                     store: self.store.scope(
-                        state: { appState in appState.lock },
-                        action: { localAction in AppAction.lock(localAction) }
+                        state: \.lock,
+                        action: AppAction.lock
                     )
                 )
             }
