@@ -72,6 +72,15 @@ extension AppState {
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
-        AppView(store: appStore)
+        AppView(store: Store(
+            initialState: AppState(
+                counter: CounterState(),
+                lock: LockState(
+                    counters: [CounterState(), CounterState(), CounterState()]
+                )
+            ),
+            reducer: appReducer,
+            environment: AppEnviroment()
+        ))
     }
 }
