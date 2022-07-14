@@ -11,17 +11,19 @@ import Foundation
 struct AppState: Equatable {
     var counter: CounterState
     var lock: LockState
+    var isPresentLock: Bool = false
 }
 
 enum AppAction: Equatable {
     case counter(CounterAction)
     case lock(LockAction)
+    case setLockSheet(isPresented: Bool)
 }
 
 struct AppEnviroment {
     let counter = defaultCounterEnv
     let lock = LockEnvironment(counter: defaultCounterEnv)
-    
+
     private static let defaultCounterEnv = CounterEnviroment(
         queue: DispatchQueue.main.eraseToAnyScheduler(),
         increment: { value, max in
@@ -50,5 +52,14 @@ let appReducer = Reducer<AppState, AppAction, AppEnviroment>.combine(
         state: \.lock,
         action: /AppAction.lock,
         environment: \.lock
-    )
+    ),
+    Reducer { state, action, _ in
+        switch action {
+        case let .setLockSheet(isPresented):
+            state.isPresentLock = isPresented
+            return .none
+        default:
+            return .none
+        }
+    }
 ).debug()

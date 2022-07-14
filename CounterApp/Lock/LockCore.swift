@@ -10,13 +10,11 @@ import Foundation
 
 struct LockState: Equatable {
     var counters: IdentifiedArrayOf<CounterState> = []
-    var isPresent: Bool = false
     var unlockAlert: AlertState<LockAction>?
 }
 
 enum LockAction: Equatable {
     case counter(id: CounterState.ID, action: CounterAction)
-    case setSheet(isPresented: Bool)
     case alertDismissed
 }
 
@@ -31,10 +29,6 @@ let lockReducer: Reducer<LockState, LockAction, LockEnvironment> =
         environment: \.counter
     ).combined(with: Reducer { state, action, env in
         switch action {
-        case let .setSheet(isPresented):
-            state.isPresent = isPresented
-            return .none
-
         case let .counter(id: id, action: .counterResponse(.success(value))):
             let counters = state.counters
             if counters.count == 3

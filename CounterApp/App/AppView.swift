@@ -30,7 +30,7 @@ struct AppView: View {
                     .padding()
 
                     Button("Show Lock View") {
-                        viewStore.send(.lock(LockAction.setSheet(isPresented: true)))
+                        viewStore.send(.setLockSheet(isPresented: true))
                     }
                 }
                 .font(Font.title2)
@@ -38,7 +38,7 @@ struct AppView: View {
             .sheet(
                 isPresented: viewStore.binding(
                     get: \.isShowLockView,
-                    send: { AppAction.lock(.setSheet(isPresented: $0)) }
+                    send: AppAction.setLockSheet(isPresented:)
                 )
             ) {
                 LockView(
@@ -54,8 +54,8 @@ struct AppView: View {
 
 extension AppView {
     struct ViewState: Equatable {
-        var counter: String
-        var isShowLockView: Bool
+        let counter: String
+        let isShowLockView: Bool
     }
 }
 
@@ -63,7 +63,7 @@ extension AppState {
     var viewState: AppView.ViewState {
         .init(
             counter: "\(counter.count)",
-            isShowLockView: lock.isPresent
+            isShowLockView: isPresentLock
         )
     }
 }
