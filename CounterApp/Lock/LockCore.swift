@@ -30,11 +30,7 @@ let lockReducer: Reducer<LockState, LockAction, LockEnvironment> =
     ).combined(with: Reducer { state, action, env in
         switch action {
         case let .counter(id: id, action: .counterResponse(.success(value))):
-            let counters = state.counters
-            if counters.count == 3
-                && counters[0].count == 9
-                && counters[1].count == 5
-                && counters[2].count == 7 {
+            if state.counters.map(\.count) == [9, 5, 7] {
                 state.unlockAlert = .init(title: .init("Unlocked!"))
             }
             return .none
