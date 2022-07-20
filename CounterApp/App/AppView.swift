@@ -32,6 +32,18 @@ struct AppView: View {
                     Button("Show Lock View") {
                         viewStore.send(.setLockSheet(isPresented: true))
                     }
+                    
+                    NavigationLink(
+                        "Goto users page",
+                        destination: UsersView(
+                            store: Store(
+                            initialState: UsersState(),
+                            reducer: usersReducer,
+                            environment: UsersEnvironment()
+                            )
+                        )
+                    )
+                    .padding()
                 }
                 .font(Font.title2)
             }
