@@ -21,6 +21,7 @@
 		D6D9B830287534FE00FB5FCD /* CounterAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B82F287534FE00FB5FCD /* CounterAppUITestsLaunchTests.swift */; };
 		D6D9B83E287539CC00FB5FCD /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D6D9B83D287539CC00FB5FCD /* ComposableArchitecture */; };
 		D6E8BD2B2887E74700B8EB8D /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD2A2887E74700B8EB8D /* UsersView.swift */; };
+		D6E8BD2D2888023600B8EB8D /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD2C2888023600B8EB8D /* UserDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		D6D9B82D287534FE00FB5FCD /* CounterAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterAppUITests.swift; sourceTree = "<group>"; };
 		D6D9B82F287534FE00FB5FCD /* CounterAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D6E8BD2A2887E74700B8EB8D /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
+		D6E8BD2C2888023600B8EB8D /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				D6E8BD2A2887E74700B8EB8D /* UsersView.swift */,
+				D6E8BD2C2888023600B8EB8D /* UserDetailView.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				D685090E287D7C0F00C0174C /* LockCore.swift in Sources */,
 				D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */,
 				D6BCE3C3287D3374000660FA /* CounterCore.swift in Sources */,
+				D6E8BD2D2888023600B8EB8D /* UserDetailView.swift in Sources */,
 				D6BCE3C1287D19EA000660FA /* AppCore.swift in Sources */,
 				D6D9B813287534FD00FB5FCD /* CounterApp.swift in Sources */,
 				D6BCE3C8287D61AA000660FA /* LockView.swift in Sources */,

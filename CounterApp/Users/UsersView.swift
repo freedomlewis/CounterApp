@@ -75,10 +75,29 @@ struct UsersView: View {
         WithViewStore(self.store) { viewStore in
             VStack(alignment: .leading, spacing: 10) {
                 ForEach(viewStore.users) { user in
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text("\(user.fullName)").font(.title2)
-                        Text("\(user.job)").foregroundColor(.gray)
-                    }.padding(.leading)
+                    NavigationLink(
+                        destination: UserDetailView(
+                            store: Store(
+                                initialState: UserDetailState(
+                                    user: User(
+                                        firstName: "David",
+                                        lastName: "Smith",
+                                        email: "david@gmail.com",
+                                        age: 60,
+                                        job: "Farmer"
+                                    )
+                                ),
+                                reducer: userDetailReducer,
+                                environment: UserDetailEnvironment()
+                            )
+                        )
+                    ) {
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("\(user.fullName)").font(.title2)
+                            Text("\(user.job)").foregroundColor(.gray)
+                        }.padding(.leading)
+                    }
+
                     Divider()
                 }
             }
