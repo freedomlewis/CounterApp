@@ -29,20 +29,24 @@ class CounterReducerTests: XCTestCase {
                 },
                 decrement: {value, min in Effect(value: value - 1)})
         )
-        
+
         store.send(.onIncBtnTapped)
         queue.advance()
         store.receive(.counterResponse(.success(1))) {
             $0.count = 1
         }
-        
+
         store.send(.onIncBtnTapped)
         queue.advance()
         store.receive(.counterResponse(.failure(ServiceError(msg: "Inc failed")))) {
             $0.count = 1
-            $0.alertMsg = "Inc failed"
+            $0.alert = AlertState(
+                title: .init("Inc failed"),
+                message: nil,
+                buttons: []
+            )
         }
-        
+
         store.send(.onDecBtnTapped)
         queue.advance()
         store.receive(.counterResponse(.success(0))) {
