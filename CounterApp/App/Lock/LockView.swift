@@ -38,7 +38,7 @@ struct LockView_Previews: PreviewProvider {
                 queue: DispatchQueue.main.eraseToAnyScheduler(),
                 increment: { value, _ in
                     Effect(value: value + 1)
-                }, decrement: { value, _ -> Effect<Int, ServiceError> in
+                }, decrement: { value, _ in
                     Effect(value: value - 1)
                 }
             ))

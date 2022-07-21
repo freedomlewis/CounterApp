@@ -26,9 +26,9 @@ struct RootView: View {
                         )
                     }
                 )
-                .padding()
+                    .padding()
                 
-                Button("Show Lock View") { viewStore.send(.setLockActive(true))}
+                Button("Show Lock View") { viewStore.send(.setLockActive(true)) }
                 
                 NavigationLink(
                     "Goto users page",
@@ -40,7 +40,7 @@ struct RootView: View {
                         )
                     }
                 )
-                .padding()
+                    .padding()
             }
             .font(Font.title2)
             .sheet(
@@ -138,7 +138,14 @@ struct RootView_Previews: PreviewProvider {
                 users: .init()
             ),
             reducer: rootReducer,
-            environment: .init()
+            environment: .init(
+                counterEnv: .init(
+                    queue: DispatchQueue.main.eraseToAnyScheduler(),
+                    increment: CounterClient.Interface.live.increment,
+                    decrement: CounterClient.Interface.live.decrement
+                ),
+                firstNameGenerator: RandomGenerator.Interface.live.generateFirstName
+            )
         ))
     }
 }

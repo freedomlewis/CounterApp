@@ -16,7 +16,7 @@ enum AppAction: Equatable {
     case root(RootAction)
 }
 
-let appReducer = Reducer<AppState, AppAction, AppEnviroment>.combine(
+let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     rootReducer.pullback(
         state: \.root,
         action: /AppAction.root,
@@ -24,11 +24,20 @@ let appReducer = Reducer<AppState, AppAction, AppEnviroment>.combine(
     )
 ).debug()
 
-struct AppEnviroment {
+struct AppEnvironment {
+    var counterClient: CounterClient.Interface
+    var randomClient: RandomGenerator.Interface
 }
 
-extension AppEnviroment {
-    var root: RootEnviroment {
-        .init()
+extension AppEnvironment {
+    var root: RootEnvironment {
+        .init(
+            counterEnv: .init(
+                queue: DispatchQueue.main.eraseToAnyScheduler(),
+                increment: counterClient.increment,
+                decrement: counterClient.decrement
+            ),
+            firstNameGenerator: randomClient.generateFirstName
+        )
     }
 }

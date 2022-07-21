@@ -25,7 +25,7 @@ enum RootAction: Equatable {
     case resetUsers
 }
 
-let rootReducer = Reducer<RootState, RootAction, RootEnviroment>.combine(
+let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
     counterReducer
         .optional()
         .pullback(
@@ -81,26 +81,21 @@ let rootReducer = Reducer<RootState, RootAction, RootEnviroment>.combine(
     }
 ).debug()
 
-struct RootEnviroment {
-    let counter = defaultCounterEnv
-    let lock = LockEnvironment(counter: defaultCounterEnv)
-    let users = UsersEnvironment(randomFirstName: randomGeneratorLive.generateFirstName)
+struct RootEnvironment {
+    let counterEnv: CounterEnviroment
+    let firstNameGenerator: RandomGenerator.GenerateFirstName
+}
+
+extension RootEnvironment {
+    var counter: CounterEnviroment {
+        counterEnv
+    }
     
-    private static let randomGeneratorLive = RandomGenerator.Interface.live
-    private static let defaultCounterEnv = CounterEnviroment(
-        queue: DispatchQueue.main.eraseToAnyScheduler(),
-        increment: { value, max in
-            if value < max {
-                return Effect(value: value + 1)
-            } else {
-                return Effect(error: ServiceError(msg: "Inc failed: greater than max \(max)"))
-            }
-        }, decrement: { value, min -> Effect<Int, ServiceError> in
-            if value > min {
-                return Effect(value: value - 1)
-            } else {
-                return Effect(error: ServiceError(msg: "Dec falied: lower than min \(min)"))
-            }
-        }
-    )
+    var lock: LockEnvironment {
+        .init(counter: counterEnv)
+    }
+    
+    var users: UsersEnvironment {
+        .init(randomFirstName: firstNameGenerator)
+    }
 }

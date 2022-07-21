@@ -25,7 +25,7 @@ struct AppView_Previews: PreviewProvider {
         AppView(store: Store(
             initialState: AppState(),
             reducer: appReducer,
-            environment: AppEnviroment()
+            environment: AppEnvironment()
         ))
     }
 }

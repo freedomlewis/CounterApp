@@ -31,6 +31,9 @@
 		D6E8BD412889585800B8EB8D /* UserDetailCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD402889585800B8EB8D /* UserDetailCore.swift */; };
 		D6E8BD4428896D1F00B8EB8D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD4328896D1F00B8EB8D /* RootView.swift */; };
 		D6E8BD4628896D3000B8EB8D /* RootCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD4528896D3000B8EB8D /* RootCore.swift */; };
+		D6E8BD492889814700B8EB8D /* CounterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD482889814700B8EB8D /* CounterClient.swift */; };
+		D6E8BD4B2889815100B8EB8D /* CounterClientLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD4A2889815100B8EB8D /* CounterClientLive.swift */; };
+		D6E8BD4D2889836F00B8EB8D /* AppEnvironmentLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD4C2889836F00B8EB8D /* AppEnvironmentLive.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +80,9 @@
 		D6E8BD402889585800B8EB8D /* UserDetailCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailCore.swift; sourceTree = "<group>"; };
 		D6E8BD4328896D1F00B8EB8D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		D6E8BD4528896D3000B8EB8D /* RootCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCore.swift; sourceTree = "<group>"; };
+		D6E8BD482889814700B8EB8D /* CounterClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterClient.swift; sourceTree = "<group>"; };
+		D6E8BD4A2889815100B8EB8D /* CounterClientLive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterClientLive.swift; sourceTree = "<group>"; };
+		D6E8BD4C2889836F00B8EB8D /* AppEnvironmentLive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironmentLive.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,7 @@
 			children = (
 				D6BCE3C0287D19EA000660FA /* AppCore.swift */,
 				D65F942728771735003F6705 /* AppView.swift */,
+				D6E8BD4C2889836F00B8EB8D /* AppEnvironmentLive.swift */,
 				D6E8BD4228896D0A00B8EB8D /* Root */,
 				D6BCE3C5287D346D000660FA /* Counter */,
 				D6BCE3C9287D61D6000660FA /* Lock */,
@@ -216,6 +223,7 @@
 		D6E8BD2F2888EBDA00B8EB8D /* Environment */ = {
 			isa = PBXGroup;
 			children = (
+				D6E8BD472889813400B8EB8D /* CounterClient */,
 				D6E8BD302888EC0100B8EB8D /* RandomGenerator */,
 			);
 			path = Environment;
@@ -263,6 +271,15 @@
 				D6E8BD4328896D1F00B8EB8D /* RootView.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		D6E8BD472889813400B8EB8D /* CounterClient */ = {
+			isa = PBXGroup;
+			children = (
+				D6E8BD482889814700B8EB8D /* CounterClient.swift */,
+				D6E8BD4A2889815100B8EB8D /* CounterClientLive.swift */,
+			);
+			path = CounterClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,9 +426,12 @@
 				D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */,
 				D6BCE3C3287D3374000660FA /* CounterCore.swift in Sources */,
 				D6E8BD2D2888023600B8EB8D /* UserDetailView.swift in Sources */,
+				D6E8BD492889814700B8EB8D /* CounterClient.swift in Sources */,
+				D6E8BD4B2889815100B8EB8D /* CounterClientLive.swift in Sources */,
 				D6E8BD352888EFAF00B8EB8D /* RandomGenerator.swift in Sources */,
 				D6BCE3C1287D19EA000660FA /* AppCore.swift in Sources */,
 				D6E8BD332888EF5E00B8EB8D /* Randoms.swift in Sources */,
+				D6E8BD4D2889836F00B8EB8D /* AppEnvironmentLive.swift in Sources */,
 				D6E8BD372888F02F00B8EB8D /* RandomGeneratorLive.swift in Sources */,
 				D6E8BD412889585800B8EB8D /* UserDetailCore.swift in Sources */,
 				D6D9B813287534FD00FB5FCD /* CounterApp.swift in Sources */,

@@ -43,7 +43,7 @@ struct ContentView_Previews: PreviewProvider {
             environment: CounterEnviroment(
                 queue: DispatchQueue.main.eraseToAnyScheduler(),
                 increment: { _, _ in Effect(value: 1) },
-                decrement: { _, _ in Effect(error: ServiceError(msg: "Dec failed: lower than min -10")) }
+                decrement: { _, _ in Effect(error: CounterClient.DecrementError(msg: "Dec failed: lower than min -10")) }
             )
         ))
     }

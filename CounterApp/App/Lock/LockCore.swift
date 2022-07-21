@@ -35,8 +35,9 @@ let lockReducer: Reducer<LockState, LockAction, LockEnvironment> =
         environment: \.counter
     ).combined(with: Reducer { state, action, env in
         switch action {
-        case let .counter(id: id, action: .counterResponse(.success(value))):
-            if state.counters.map(\.count) == [9, 5, 7] {
+        case let .counter(id: id, action: .incrementComplete(.success(value))),
+            let .counter(id: id, action: .decrementComplete(.success(value))):
+            if state.counters.map(\.count) == state.code {
                 state.unlockAlert = .init(title: .init("Unlocked!"))
             }
             return .none
