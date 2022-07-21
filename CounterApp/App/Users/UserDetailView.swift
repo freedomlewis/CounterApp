@@ -10,53 +10,130 @@ import SwiftUI
 
 struct UserDetailState: Equatable {
     var user: User
+    var editUserState: EditUserState?
+    var isPresent: Bool = false
 }
 
 enum UserDetailAction: Equatable {
+    case edit(EditUserAction)
+    case setEditSheet(isPresent: Bool)
+    case activeEdit
+    case deActiveEdit
 }
 
 struct UserDetailEnvironment {}
 
-let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnvironment> { _, action, _ in
-    switch action {
-    default:
-        return .none
+let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnvironment>.combine(
+    editUserReducer
+        .optional()
+        .pullback(
+            state: \.editUserState,
+            action: /UserDetailAction.edit,
+            environment: { _ in EditUserEnvironment() }
+        ),
+    
+    Reducer { state, action, _ in
+        switch action {
+        case .activeEdit:
+            state.editUserState = EditUserState(user: state.user)
+            return .none
+            
+        case .deActiveEdit:
+            state.editUserState = nil
+            return .none
+            
+        case .edit(.onSaveTapped):
+            guard let editUser = state.editUserState?.user else {
+                return .none
+            }
+            state.user = editUser
+            return Effect(value: .deActiveEdit)
+        
+        case .edit(.onCancelTapped):
+            return Effect(value: .deActiveEdit)
+            
+        default:
+            return .none
+        }
     }
-}
+)
 
 struct UserDetailView: View {
     let store: Store<UserDetailState, UserDetailAction>
     
     var body: some View {
-        WithViewStore(self.store.scope(state: \.user)) { user in
+        WithViewStore(self.store.scope(state: \.viewState)) { viewStore in
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text("Name: ")
-                    Text("\(user.fullName)")
+                    Text("\(viewStore.name)")
                 }
                 
                 Divider()
                 
                 HStack {
                     Text("Email: ")
-                    Text("\(user.email)")
+                    Text("\(viewStore.email)")
                 }
                 
                 Divider()
                 
                 HStack {
                     Text("Age: ")
-                    Text("\(user.age)")
+                    Text("\(viewStore.age)")
                 }
                 
                 Divider()
                 
                 HStack {
                     Text("Job: ")
-                    Text("\(user.job)")
+                    Text("\(viewStore.job)")
+                }
+                
+                Button("Edit User Info") {
+                    viewStore.send(.activeEdit)
+                }
+                Spacer()
+            }
+            .padding(.leading)
+            .sheet(
+                isPresented: viewStore.binding(
+                    get: \.isPresent,
+                    send: { _ in .deActiveEdit }
+                )
+            ) {
+                IfLetStore(
+                    self.store.scope(
+                        state: \.editUserState,
+                        action: UserDetailAction.edit
+                    )
+                ) {
+                    EditUserView(store: $0)
                 }
             }
         }
+    }
+}
+
+extension UserDetailView {
+    struct State: Equatable {
+        var name: String
+        var email: String
+        var age: Int
+        var job: String
+        var isPresent: Bool
+    }
+}
+
+extension UserDetailState {
+    var viewState: UserDetailView.State {
+        .init(
+            name: user.fullName,
+            email: user.email,
+            age: user.age,
+            job: user.job,
+            isPresent: editUserState != nil
+        )
     }
 }
 

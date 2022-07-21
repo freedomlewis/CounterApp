@@ -25,6 +25,7 @@
 		D6E8BD332888EF5E00B8EB8D /* Randoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD322888EF5E00B8EB8D /* Randoms.swift */; };
 		D6E8BD352888EFAF00B8EB8D /* RandomGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD342888EFAF00B8EB8D /* RandomGenerator.swift */; };
 		D6E8BD372888F02F00B8EB8D /* RandomGeneratorLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD362888F02F00B8EB8D /* RandomGeneratorLive.swift */; };
+		D6E8BD392888FD9500B8EB8D /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD382888FD9500B8EB8D /* EditUserView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		D6E8BD322888EF5E00B8EB8D /* Randoms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Randoms.swift; sourceTree = "<group>"; };
 		D6E8BD342888EFAF00B8EB8D /* RandomGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomGenerator.swift; sourceTree = "<group>"; };
 		D6E8BD362888F02F00B8EB8D /* RandomGeneratorLive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomGeneratorLive.swift; sourceTree = "<group>"; };
+		D6E8BD382888FD9500B8EB8D /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,7 @@
 			children = (
 				D6E8BD2A2887E74700B8EB8D /* UsersView.swift */,
 				D6E8BD2C2888023600B8EB8D /* UserDetailView.swift */,
+				D6E8BD382888FD9500B8EB8D /* EditUserView.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6E8BD392888FD9500B8EB8D /* EditUserView.swift in Sources */,
 				D65F942828771735003F6705 /* AppView.swift in Sources */,
 				D685090E287D7C0F00C0174C /* LockCore.swift in Sources */,
 				D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */,
