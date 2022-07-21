@@ -25,8 +25,9 @@ enum AppAction: Equatable {
 struct AppEnviroment {
     let counter = defaultCounterEnv
     let lock = LockEnvironment(counter: defaultCounterEnv)
-    let users = UsersEnvironment()
+    let users = UsersEnvironment(randomFirstName: randomGeneratorLive.generateFirstName)
 
+    private static let randomGeneratorLive = RandomGenerator.Interface.live
     private static let defaultCounterEnv = CounterEnviroment(
         queue: DispatchQueue.main.eraseToAnyScheduler(),
         increment: { value, max in

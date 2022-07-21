@@ -40,7 +40,7 @@ struct UsersState: Equatable {
             job: "Farmer"
         )
     ]
-    
+
     var selection: Identified<User.ID, UserDetailState?>?
 }
 
@@ -62,32 +62,50 @@ extension User {
 enum UsersAction: Equatable {
     case detail(UserDetailAction)
     case setNavigation(selection: UUID?)
+    case setFirstName(String)
+    case onAppear
+    case onDisappear
 }
 
-struct UsersEnvironment {}
+struct UsersEnvironment {
+    var randomFirstName: RandomGenerator.GenerateFirstName
+}
 
-let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment> { state, action, _ in
+let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment> { state, action, env in
     switch action {
     case .detail:
         return .none
-        
+
     case let .setNavigation(selection: .some(id)):
         let detailState = UserDetailState(user: state.users[id: id]!)
         state.selection = Identified(detailState, id: id)
         return .none
-        
+
     case .setNavigation(selection: .none):
         if let selection = state.selection, let userDetail = selection.value {
             state.users[id: selection.id] = userDetail.user
         }
         state.selection = nil
         return .none
+
+    case .onAppear:
+        return env.randomFirstName().map(UsersAction.setFirstName).eraseToEffect()
+
+    case .onDisappear:
+        return .cancel(id: RandomGeneratorTimerId.self)
+
+    case let .setFirstName(firstName):
+        guard let firstId = state.users.first?.id else {
+            return .none
+        }
+        state.users[id: firstId]?.firstName = firstName
+        return .none
     }
 }
 
 struct UsersView: View {
     let store: Store<UsersState, UsersAction>
-    
+
     var body: some View {
         WithViewStore(self.store) { viewStore in
             VStack(alignment: .leading, spacing: 10) {
@@ -118,9 +136,15 @@ struct UsersView: View {
                             }
                         }.padding(.leading)
                     }
-                    
+
                     Divider()
                 }
+            }
+            .onAppear {
+                viewStore.send(.onAppear)
+            }
+            .onDisappear {
+                viewStore.send(.onDisappear)
             }
         }
     }
@@ -132,7 +156,9 @@ struct UsersView_Previews: PreviewProvider {
             store: Store(
                 initialState: UsersState(),
                 reducer: usersReducer,
-                environment: UsersEnvironment()
+                environment: UsersEnvironment(
+                    randomFirstName: { .none }
+                )
             )
         )
     }
