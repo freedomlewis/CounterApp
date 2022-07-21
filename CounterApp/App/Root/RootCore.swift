@@ -23,6 +23,7 @@ enum RootAction: Equatable {
     case resetLock
     case activeUsers
     case resetUsers
+    case resetUsersComplete
 }
 
 let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
@@ -72,6 +73,12 @@ let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
             return .none
 
         case .resetUsers:
+            // delay for the userReducer cancel the randomGenerator with the onDisappear action
+            return Effect(value: .resetUsersComplete)
+                .delay(for: 1, scheduler: DispatchQueue.main)
+                .eraseToEffect()
+        
+        case .resetUsersComplete:
             state.users = nil
             return .none
             
