@@ -22,8 +22,8 @@ struct AppView: View {
                         "Goto edit page",
                         destination: CounterView(
                             store: self.store.scope(
-                                state: { appState in appState.counter },
-                                action: { localAction in AppAction.counter(localAction) }
+                                state: \.counter,
+                                action: AppAction.counter
                             )
                         )
                     )
@@ -32,14 +32,13 @@ struct AppView: View {
                     Button("Show Lock View") {
                         viewStore.send(.setLockSheet(isPresented: true))
                     }
-                    
+
                     NavigationLink(
                         "Goto users page",
                         destination: UsersView(
-                            store: Store(
-                            initialState: UsersState(),
-                            reducer: usersReducer,
-                            environment: UsersEnvironment()
+                            store: self.store.scope(
+                                state: \.users,
+                                action: AppAction.users
                             )
                         )
                     )
@@ -86,8 +85,13 @@ struct AppView_Previews: PreviewProvider {
             initialState: AppState(
                 counter: CounterState(),
                 lock: LockState(
-                    counters: [CounterState(), CounterState(), CounterState()]
-                )
+                    counters: [
+                        CounterState(),
+                        CounterState(),
+                        CounterState()
+                    ]
+                ),
+                users: UsersState()
             ),
             reducer: appReducer,
             environment: AppEnviroment()

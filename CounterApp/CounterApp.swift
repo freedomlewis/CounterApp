@@ -19,7 +19,8 @@ struct CounterApp: App {
                     CounterState(count: 5),
                     CounterState(count: 9)
                 ]
-            )
+            ),
+            users: UsersState()
         ),
         reducer: appReducer,
         environment: AppEnviroment()
