@@ -10,21 +10,7 @@ import SwiftUI
 
 @main
 struct CounterApp: App {
-    let appStore = Store(
-        initialState: AppState(
-            counter: CounterState(),
-            lock: LockState(
-                counters: [
-                    CounterState(count: 0),
-                    CounterState(count: 5),
-                    CounterState(count: 9)
-                ]
-            ),
-            users: UsersState()
-        ),
-        reducer: appReducer,
-        environment: AppEnviroment()
-    )
+    let appStore = Store(initialState: AppState(), reducer: appReducer, environment: AppEnviroment())
     
     var body: some Scene {
         WindowGroup {

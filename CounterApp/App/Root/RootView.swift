@@ -1,0 +1,152 @@
+//
+//  RootView.swift
+//  CounterApp
+//
+//  Created by Wenjuan Li on 2022/7/21.
+//
+
+import ComposableArchitecture
+import SwiftUI
+
+struct RootView: View {
+    let store: Store<RootState, RootAction>
+    
+    var body: some View {
+        WithViewStore(self.store.scope(state: \.view, action: RootAction.view)) { viewStore in
+            VStack {
+                Text("\(viewStore.counter)")
+                
+                NavigationLink(
+                    "Goto edit page",
+                    isActive: viewStore.binding(get: \.counterDetailActive, send: ViewAction.setCounterDetailActive),
+                    destination: {
+                        IfLetStore(
+                            self.store.scope(state: \.counter, action: RootAction.counter),
+                            then: CounterView.init
+                        )
+                    }
+                )
+                .padding()
+                
+                Button("Show Lock View") { viewStore.send(.setLockActive(true))}
+                
+                NavigationLink(
+                    "Goto users page",
+                    isActive: viewStore.binding(get: \.usersActive, send: ViewAction.setUsersActive),
+                    destination: {
+                        IfLetStore(
+                            self.store.scope(state: \.users, action: RootAction.users),
+                            then: UsersView.init
+                        )
+                    }
+                )
+                .padding()
+            }
+            .font(Font.title2)
+            .sheet(
+                isPresented: viewStore.binding(get: \.lockActive, send: ViewAction.setLockActive)
+            ) {
+                IfLetStore(
+                    self.store.scope(state: \.lock, action: RootAction.lock),
+                    then: LockView.init
+                )
+            }
+        }
+    }
+}
+
+extension RootView {
+    struct ViewState: Equatable {
+        let counter: String
+        let isShowLockView: Bool
+        let counterDetailActive: Bool
+        let lockActive: Bool
+        let usersActive: Bool
+    }
+    
+    enum ViewAction: Equatable {
+        case setCounterDetailActive(Bool)
+        case setLockActive(Bool)
+        case setUsersActive(Bool)
+    }
+}
+
+extension RootState {
+    var view: RootView.ViewState {
+        .init(
+            counter: "\(counter?.count ?? 0)",
+            isShowLockView: isPresentLock,
+            counterDetailActive: counter != nil,
+            lockActive: lock != nil,
+            usersActive: users != nil
+        )
+    }
+}
+
+extension RootAction {
+    static func view(_ localAction: RootView.ViewAction) -> RootAction {
+        switch localAction {
+        case .setCounterDetailActive(true):
+            return .activeCounterDetail
+            
+        case .setCounterDetailActive(false):
+            return .resetCounterDetail
+            
+        case .setLockActive(true):
+            return .activeLock
+            
+        case .setLockActive(false):
+            return .resetLock
+            
+        case .setUsersActive(true):
+            return .activeUsers
+            
+        case .setUsersActive(false):
+            return .resetUsers
+        }
+    }
+}
+
+extension RootView.ViewAction {
+    var rootAction: RootAction {
+        switch self {
+        case .setCounterDetailActive(true):
+            return .activeCounterDetail
+            
+        case .setCounterDetailActive(false):
+            return .resetCounterDetail
+            
+        case .setLockActive(true):
+            return .activeLock
+            
+        case .setLockActive(false):
+            return .resetLock
+            
+        case .setUsersActive(true):
+            return .activeUsers
+            
+        case .setUsersActive(false):
+            return .resetUsers
+        }
+    }
+}
+
+struct RootView_Previews: PreviewProvider {
+    static var previews: some View {
+        RootView(store: Store(
+            initialState: RootState(
+                counter: CounterState(),
+                lock: LockState(
+                    counters: [
+                        CounterState(),
+                        CounterState(),
+                        CounterState()
+                    ]
+                ),
+                users: UsersState()
+            ),
+            reducer: rootReducer,
+            environment: RootEnviroment()
+        ))
+    }
+}

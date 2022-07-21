@@ -29,6 +29,8 @@
 		D6E8BD3D2889573F00B8EB8D /* UsersCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD3C2889573F00B8EB8D /* UsersCore.swift */; };
 		D6E8BD3F2889582700B8EB8D /* EditUserCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD3E2889582700B8EB8D /* EditUserCore.swift */; };
 		D6E8BD412889585800B8EB8D /* UserDetailCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD402889585800B8EB8D /* UserDetailCore.swift */; };
+		D6E8BD4428896D1F00B8EB8D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD4328896D1F00B8EB8D /* RootView.swift */; };
+		D6E8BD4628896D3000B8EB8D /* RootCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8BD4528896D3000B8EB8D /* RootCore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		D6E8BD3C2889573F00B8EB8D /* UsersCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersCore.swift; sourceTree = "<group>"; };
 		D6E8BD3E2889582700B8EB8D /* EditUserCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserCore.swift; sourceTree = "<group>"; };
 		D6E8BD402889585800B8EB8D /* UserDetailCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailCore.swift; sourceTree = "<group>"; };
+		D6E8BD4328896D1F00B8EB8D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		D6E8BD4528896D3000B8EB8D /* RootCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,7 @@
 			children = (
 				D6BCE3C0287D19EA000660FA /* AppCore.swift */,
 				D65F942728771735003F6705 /* AppView.swift */,
+				D6E8BD4228896D0A00B8EB8D /* Root */,
 				D6BCE3C5287D346D000660FA /* Counter */,
 				D6BCE3C9287D61D6000660FA /* Lock */,
 				D6E8BD292887E71F00B8EB8D /* Users */,
@@ -249,6 +254,15 @@
 				D6E8BD382888FD9500B8EB8D /* EditUserView.swift */,
 			);
 			path = EditUser;
+			sourceTree = "<group>";
+		};
+		D6E8BD4228896D0A00B8EB8D /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				D6E8BD4528896D3000B8EB8D /* RootCore.swift */,
+				D6E8BD4328896D1F00B8EB8D /* RootView.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,9 +401,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6E8BD4628896D3000B8EB8D /* RootCore.swift in Sources */,
 				D6E8BD392888FD9500B8EB8D /* EditUserView.swift in Sources */,
 				D65F942828771735003F6705 /* AppView.swift in Sources */,
 				D685090E287D7C0F00C0174C /* LockCore.swift in Sources */,
+				D6E8BD4428896D1F00B8EB8D /* RootView.swift in Sources */,
 				D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */,
 				D6BCE3C3287D3374000660FA /* CounterCore.swift in Sources */,
 				D6E8BD2D2888023600B8EB8D /* UserDetailView.swift in Sources */,
