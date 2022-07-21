@@ -12,7 +12,8 @@ struct UserDetailState: Equatable {
     var user: User
 }
 
-struct UserDetailAction {}
+enum UserDetailAction: Equatable {
+}
 
 struct UserDetailEnvironment {}
 
@@ -28,7 +29,7 @@ struct UserDetailView: View {
     
     var body: some View {
         WithViewStore(self.store.scope(state: \.user)) { user in
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text("Name: ")
                     Text("\(user.fullName)")

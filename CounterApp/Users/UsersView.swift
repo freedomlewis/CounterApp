@@ -40,6 +40,8 @@ struct UsersState: Equatable {
             job: "Farmer"
         )
     ]
+    
+    var selection: Identified<User.ID, UserDetailState?>?
 }
 
 struct User: Equatable, Identifiable {
@@ -57,39 +59,54 @@ extension User {
     }
 }
 
-struct UsersAction {}
+enum UsersAction: Equatable {
+    case detail(UserDetailAction)
+    case setNavigation(selection: UUID?)
+}
 
 struct UsersEnvironment {}
 
-let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment> { _, action, _ in
+let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment> { state, action, _ in
     switch action {
-    default:
+    case .detail:
+        return .none
+        
+    case let .setNavigation(selection: .some(id)):
+        let detailState = UserDetailState(user: state.users[id: id]!)
+        state.selection = Identified(detailState, id: id)
+        return .none
+        
+    case .setNavigation(selection: .none):
+        if let selection = state.selection, let userDetail = selection.value {
+            state.users[id: selection.id] = userDetail.user
+        }
+        state.selection = nil
         return .none
     }
 }
 
 struct UsersView: View {
     let store: Store<UsersState, UsersAction>
-
+    
     var body: some View {
         WithViewStore(self.store) { viewStore in
             VStack(alignment: .leading, spacing: 10) {
                 ForEach(viewStore.users) { user in
                     NavigationLink(
-                        destination: UserDetailView(
-                            store: Store(
-                                initialState: UserDetailState(
-                                    user: User(
-                                        firstName: "David",
-                                        lastName: "Smith",
-                                        email: "david@gmail.com",
-                                        age: 60,
-                                        job: "Farmer"
-                                    )
-                                ),
-                                reducer: userDetailReducer,
-                                environment: UserDetailEnvironment()
+                        destination: IfLetStore(
+                            self.store.scope(
+                                state: \.selection?.value,
+                                action: UsersAction.detail
                             )
+                        ) {
+                            UserDetailView(store: $0)
+                        } else: {
+                            ProgressView()
+                        },
+                        tag: user.id,
+                        selection: viewStore.binding(
+                            get: \.selection?.id,
+                            send: UsersAction.setNavigation(selection:)
                         )
                     ) {
                         VStack(alignment: .leading, spacing: 5) {
@@ -97,7 +114,7 @@ struct UsersView: View {
                             Text("\(user.job)").foregroundColor(.gray)
                         }.padding(.leading)
                     }
-
+                    
                     Divider()
                 }
             }
