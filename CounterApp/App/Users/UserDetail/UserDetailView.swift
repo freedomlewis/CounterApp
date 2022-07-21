@@ -8,56 +8,6 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct UserDetailState: Equatable {
-    var user: User
-    var editUserState: EditUserState?
-    var isPresent: Bool = false
-}
-
-enum UserDetailAction: Equatable {
-    case edit(EditUserAction)
-    case setEditSheet(isPresent: Bool)
-    case activeEdit
-    case deActiveEdit
-}
-
-struct UserDetailEnvironment {}
-
-let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnvironment>.combine(
-    editUserReducer
-        .optional()
-        .pullback(
-            state: \.editUserState,
-            action: /UserDetailAction.edit,
-            environment: { _ in EditUserEnvironment() }
-        ),
-    
-    Reducer { state, action, _ in
-        switch action {
-        case .activeEdit:
-            state.editUserState = EditUserState(user: state.user)
-            return .none
-            
-        case .deActiveEdit:
-            state.editUserState = nil
-            return .none
-            
-        case .edit(.onSaveTapped):
-            guard let editUser = state.editUserState?.user else {
-                return .none
-            }
-            state.user = editUser
-            return Effect(value: .deActiveEdit)
-        
-        case .edit(.onCancelTapped):
-            return Effect(value: .deActiveEdit)
-            
-        default:
-            return .none
-        }
-    }
-)
-
 struct UserDetailView: View {
     let store: Store<UserDetailState, UserDetailAction>
     
