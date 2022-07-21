@@ -38,6 +38,13 @@ struct UserDetailView: View {
                 Divider()
                 
                 HStack {
+                    Text("Email: ")
+                    Text("\(user.email)")
+                }
+                
+                Divider()
+                
+                HStack {
                     Text("Age: ")
                     Text("\(user.age)")
                 }
@@ -47,13 +54,6 @@ struct UserDetailView: View {
                 HStack {
                     Text("Job: ")
                     Text("\(user.job)")
-                }
-                
-                Divider()
-                
-                HStack {
-                    Text("Email: ")
-                    Text("\(user.email)")
                 }
             }
         }

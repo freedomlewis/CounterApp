@@ -101,6 +101,9 @@
 			children = (
 				D6BCE3C0287D19EA000660FA /* AppCore.swift */,
 				D65F942728771735003F6705 /* AppView.swift */,
+				D6BCE3C5287D346D000660FA /* Counter */,
+				D6BCE3C9287D61D6000660FA /* Lock */,
+				D6E8BD292887E71F00B8EB8D /* Users */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -139,9 +142,7 @@
 			children = (
 				D6D9B812287534FD00FB5FCD /* CounterApp.swift */,
 				D6BCE3C6287D3477000660FA /* App */,
-				D6BCE3C5287D346D000660FA /* Counter */,
-				D6BCE3C9287D61D6000660FA /* Lock */,
-				D6E8BD292887E71F00B8EB8D /* Users */,
+				D6E8BD2E2888E5F500B8EB8D /* Components */,
 				D6D9B816287534FE00FB5FCD /* Assets.xcassets */,
 				D6D9B818287534FE00FB5FCD /* Preview Content */,
 			);
@@ -180,6 +181,13 @@
 				D6E8BD2C2888023600B8EB8D /* UserDetailView.swift */,
 			);
 			path = Users;
+			sourceTree = "<group>";
+		};
+		D6E8BD2E2888E5F500B8EB8D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

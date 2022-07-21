@@ -110,8 +110,12 @@ struct UsersView: View {
                         )
                     ) {
                         VStack(alignment: .leading, spacing: 5) {
-                            Text("\(user.fullName)").font(.title2)
-                            Text("\(user.job)").foregroundColor(.gray)
+                            HStack {
+                                Text("\(user.fullName)").font(.title2)
+                            }
+                            HStack {
+                                Text("\(user.email)").foregroundColor(.gray)
+                            }
                         }.padding(.leading)
                     }
                     
