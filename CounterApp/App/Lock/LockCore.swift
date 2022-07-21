@@ -9,8 +9,14 @@ import ComposableArchitecture
 import Foundation
 
 struct LockState: Equatable {
+    var code: [Int]
     var counters: IdentifiedArrayOf<CounterState> = []
     var unlockAlert: AlertState<LockAction>?
+    
+    init(code: [Int]) {
+        self.code = code
+        self.counters = .init(uniqueElements: (0..<code.count).map{_ in CounterState()}) 
+    }
 }
 
 enum LockAction: Equatable {

@@ -58,7 +58,6 @@ struct RootView: View {
 extension RootView {
     struct ViewState: Equatable {
         let counter: String
-        let isShowLockView: Bool
         let counterDetailActive: Bool
         let lockActive: Bool
         let usersActive: Bool
@@ -75,7 +74,6 @@ extension RootState {
     var view: RootView.ViewState {
         .init(
             counter: "\(counter?.count ?? 0)",
-            isShowLockView: isPresentLock,
             counterDetailActive: counter != nil,
             lockActive: lock != nil,
             usersActive: users != nil
@@ -135,18 +133,12 @@ struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView(store: Store(
             initialState: RootState(
-                counter: CounterState(),
-                lock: LockState(
-                    counters: [
-                        CounterState(),
-                        CounterState(),
-                        CounterState()
-                    ]
-                ),
-                users: UsersState()
+                counter: .init(),
+                lock: .init(code: [9, 5, 7]),
+                users: .init()
             ),
             reducer: rootReducer,
-            environment: RootEnviroment()
+            environment: .init()
         ))
     }
 }

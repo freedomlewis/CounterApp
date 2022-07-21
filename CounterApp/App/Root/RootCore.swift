@@ -10,14 +10,12 @@ import ComposableArchitecture
 struct RootState: Equatable {
     var counter: CounterState?
     var lock: LockState?
-    var isPresentLock: Bool = false
     var users: UsersState?
 }
 
 enum RootAction: Equatable {
     case counter(CounterAction)
     case lock(LockAction)
-    case setLockSheet(isPresented: Bool)
     case users(UsersAction)
     case activeCounterDetail
     case resetCounterDetail
@@ -53,12 +51,8 @@ let rootReducer = Reducer<RootState, RootAction, RootEnviroment>.combine(
         ),
     Reducer { state, action, _ in
         switch action {
-        case let .setLockSheet(isPresented):
-            state.isPresentLock = isPresented
-            return .none
-        
         case .activeCounterDetail:
-            state.counter = CounterState()
+            state.counter = .init()
             return .none
             
         case .resetCounterDetail:
@@ -66,13 +60,7 @@ let rootReducer = Reducer<RootState, RootAction, RootEnviroment>.combine(
             return .none
             
         case .activeLock:
-            state.lock = LockState(
-                counters: [
-                    CounterState(count: 0),
-                    CounterState(count: 5),
-                    CounterState(count: 9)
-                ]
-            )
+            state.lock = .init(code: [9, 5, 7])
             return .none
             
         case .resetLock:
@@ -80,7 +68,7 @@ let rootReducer = Reducer<RootState, RootAction, RootEnviroment>.combine(
             return .none
             
         case .activeUsers:
-            state.users = UsersState()
+            state.users = .init()
             return .none
 
         case .resetUsers:
