@@ -127,9 +127,6 @@
 				D65F942728771735003F6705 /* AppView.swift */,
 				D6E8BD4C2889836F00B8EB8D /* AppEnvironmentLive.swift */,
 				D6E8BD4228896D0A00B8EB8D /* Root */,
-				D6BCE3C5287D346D000660FA /* Counter */,
-				D6BCE3C9287D61D6000660FA /* Lock */,
-				D6E8BD292887E71F00B8EB8D /* Users */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -269,6 +266,9 @@
 			children = (
 				D6E8BD4528896D3000B8EB8D /* RootCore.swift */,
 				D6E8BD4328896D1F00B8EB8D /* RootView.swift */,
+				D6BCE3C5287D346D000660FA /* Counter */,
+				D6BCE3C9287D61D6000660FA /* Lock */,
+				D6E8BD292887E71F00B8EB8D /* Users */,
 			);
 			path = Root;
 			sourceTree = "<group>";

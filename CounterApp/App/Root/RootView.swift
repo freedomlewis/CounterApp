@@ -105,30 +105,6 @@ extension RootAction {
     }
 }
 
-extension RootView.ViewAction {
-    var rootAction: RootAction {
-        switch self {
-        case .setCounterDetailActive(true):
-            return .activeCounterDetail
-            
-        case .setCounterDetailActive(false):
-            return .resetCounterDetail
-            
-        case .setLockActive(true):
-            return .activeLock
-            
-        case .setLockActive(false):
-            return .resetLock
-            
-        case .setUsersActive(true):
-            return .activeUsers
-            
-        case .setUsersActive(false):
-            return .resetUsers
-        }
-    }
-}
-
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView(store: Store(
