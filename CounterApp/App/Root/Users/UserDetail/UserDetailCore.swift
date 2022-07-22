@@ -18,15 +18,13 @@ enum UserDetailAction: Equatable {
     case deActiveEdit
 }
 
-struct UserDetailEnvironment {}
-
 let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnvironment>.combine(
     editUserReducer
         .optional()
         .pullback(
             state: \.editUserState,
             action: /UserDetailAction.edit,
-            environment: { _ in EditUserEnvironment() }
+            environment: \.editUser
         ),
     
     Reducer { state, action, _ in
@@ -54,3 +52,11 @@ let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnv
         }
     }
 )
+
+struct UserDetailEnvironment {}
+
+extension UserDetailEnvironment {
+    var editUser: EditUserEnvironment {
+        .init(userInfo: UserInfoEnvironment())
+    }
+}

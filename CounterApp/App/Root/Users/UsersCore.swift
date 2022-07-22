@@ -50,9 +50,9 @@ let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment>.combine(
         .pullback(state: \Identified.value, action: .self, environment: { $0 })
         .optional()
         .pullback(
-            state: \.selection,
+            state: \UsersState.selection,
             action: /UsersAction.detail,
-            environment: { _ in UserDetailEnvironment() }
+            environment: \.userDetail
         ),
     Reducer { state, action, env in
         switch action {
@@ -99,4 +99,10 @@ extension User {
 
 struct UsersEnvironment {
     var randomFirstName: RandomGenerator.GenerateFirstName
+}
+
+extension UsersEnvironment {
+    var userDetail: UserDetailEnvironment {
+        .init()
+    }
 }

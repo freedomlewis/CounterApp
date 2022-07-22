@@ -9,43 +9,35 @@ import ComposableArchitecture
 
 struct EditUserState: Equatable {
     var user: User
+    var userInfo: UserInfoState
+    
+    init(user: User) {
+        self.user = user
+        self.userInfo = UserInfoState(user: user)
+    }
 }
 
 enum EditUserAction: Equatable {
-    case firstNameChanged(String)
-    case lastNameChanged(String)
-    case emailChanged(String)
-    case ageChanged(String)
-    case jobChanged(String)
+    case userInfoView(UserInfoAction)
     case onSaveTapped
     case onCancelTapped
 }
 
-struct EditUserEnvironment {}
-
-let editUserReducer = Reducer<EditUserState, EditUserAction, EditUserEnvironment> { state, action, _ in
-    switch action {
-    case let .firstNameChanged(firstName):
-        state.user.firstName = firstName
-        return .none
-        
-    case let .lastNameChanged(lastName):
-        state.user.lastName = lastName
-        return .none
-        
-    case let .emailChanged(email):
-        state.user.email = email
-        return .none
-        
-    case let .ageChanged(age):
-        state.user.age = Int(age) ?? 0
-        return .none
-        
-    case let .jobChanged(job):
-        state.user.job = job
-        return .none
-        
-    default:
-        return .none
-    }
+struct EditUserEnvironment {
+    var userInfo: UserInfoEnvironment
 }
+
+let editUserReducer = Reducer<EditUserState, EditUserAction, EditUserEnvironment>.combine(
+    userInfoReducer.pullback(state: \.userInfo, action: /EditUserAction.userInfoView, environment: \.userInfo),
+    Reducer{ state, action, _ in
+        switch action {
+        case .onSaveTapped:
+            state.user = state.userInfo.user
+            return .none
+        case .onCancelTapped:
+            return .none
+        default:
+            return .none
+        }
+    }
+)
