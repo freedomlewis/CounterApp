@@ -78,8 +78,6 @@ extension EditUserView {
         var age: String
         var job: String
     }
-    
-    struct Environment {}
 }
 
 extension EditUserState {

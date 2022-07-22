@@ -91,6 +91,10 @@ extension User {
     var fullName: String {
         "\(firstName) \(lastName)"
     }
+    
+    static var dummy: Self {
+        User(firstName: "John", lastName: "Simth", email: "john@gmail.com", age: 14, job: "Student")
+    }
 }
 
 struct UsersEnvironment {

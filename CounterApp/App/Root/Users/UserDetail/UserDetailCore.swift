@@ -10,12 +10,10 @@ import ComposableArchitecture
 struct UserDetailState: Equatable {
     var user: User
     var editUserState: EditUserState?
-    var isPresent: Bool = false
 }
 
 enum UserDetailAction: Equatable {
     case edit(EditUserAction)
-    case setEditSheet(isPresent: Bool)
     case activeEdit
     case deActiveEdit
 }
