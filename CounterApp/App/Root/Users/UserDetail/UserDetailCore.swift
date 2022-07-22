@@ -8,17 +8,25 @@
 import ComposableArchitecture
 
 struct UserDetailState: Equatable {
-    var user: User
+    var userInfo: UserInfoState
     var editUserState: EditUserState?
 }
 
 enum UserDetailAction: Equatable {
+    case userInfoView(UserInfoAction)
     case edit(EditUserAction)
     case activeEdit
     case deActiveEdit
 }
 
 let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnvironment>.combine(
+    userInfoReducer
+        .pullback(
+            state: \.userInfo,
+            action: /UserDetailAction.userInfoView,
+            environment: \.userInfo
+        ),
+    
     editUserReducer
         .optional()
         .pullback(
@@ -30,7 +38,9 @@ let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnv
     Reducer { state, action, _ in
         switch action {
         case .activeEdit:
-            state.editUserState = EditUserState(user: state.user)
+            var editUserInfo = state.userInfo
+            editUserInfo.disabled = false
+            state.editUserState = EditUserState(userInfo: editUserInfo)
             return .none
             
         case .deActiveEdit:
@@ -38,12 +48,12 @@ let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnv
             return .none
             
         case .edit(.onSaveTapped):
-            guard let editUser = state.editUserState?.user else {
+            guard let editUser = state.editUserState?.userInfo.user else {
                 return .none
             }
-            state.user = editUser
+            state.userInfo.user = editUser
             return Effect(value: .deActiveEdit)
-        
+            
         case .edit(.onCancelTapped):
             return Effect(value: .deActiveEdit)
             
@@ -53,7 +63,9 @@ let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnv
     }
 )
 
-struct UserDetailEnvironment {}
+struct UserDetailEnvironment {
+    var userInfo: UserInfoEnvironment
+}
 
 extension UserDetailEnvironment {
     var editUser: EditUserEnvironment {

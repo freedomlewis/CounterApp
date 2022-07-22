@@ -10,38 +10,14 @@ import SwiftUI
 
 struct UserDetailView: View {
     let store: Store<UserDetailState, UserDetailAction>
-    
+
     var body: some View {
         WithViewStore(self.store.scope(state: \.viewState, action: UserDetailAction.view)) { viewStore in
             VStack(alignment: .leading) {
                 Button("Edit User Info") { viewStore.send(.setEditActive(true)) }.padding(.bottom, 10)
-                
-                HStack {
-                    Text("Name: ")
-                    Text("\(viewStore.name)")
-                }
-                
-                Divider()
-                
-                HStack {
-                    Text("Email: ")
-                    Text("\(viewStore.email)")
-                }
-                
-                Divider()
-                
-                HStack {
-                    Text("Age: ")
-                    Text("\(viewStore.age)")
-                }
-                
-                Divider()
-                
-                HStack {
-                    Text("Job: ")
-                    Text("\(viewStore.job)")
-                }
-                
+
+                UserInfoView(store: self.store.scope(state: \.userInfo, action: UserDetailAction.userInfoView))
+
                 Spacer()
             }
             .padding(.leading)
@@ -62,13 +38,9 @@ struct UserDetailView: View {
 
 extension UserDetailView {
     struct State: Equatable {
-        var name: String
-        var email: String
-        var age: Int
-        var job: String
         var isPresent: Bool
     }
-    
+
     enum ViewAction: Equatable {
         case setEditActive(Bool)
     }
@@ -76,13 +48,7 @@ extension UserDetailView {
 
 extension UserDetailState {
     var viewState: UserDetailView.State {
-        .init(
-            name: user.fullName,
-            email: user.email,
-            age: user.age,
-            job: user.job,
-            isPresent: editUserState != nil
-        )
+        .init(isPresent: editUserState != nil)
     }
 }
 
@@ -102,16 +68,10 @@ struct UserDetailView_Previews: PreviewProvider {
         UserDetailView(
             store: Store(
                 initialState: UserDetailState(
-                    user: User(
-                        firstName: "David",
-                        lastName: "Smith",
-                        email: "david@gmail.com",
-                        age: 60,
-                        job: "Farmer"
-                    )
+                    userInfo: UserInfoState(user: User.dummy, disabled: true)
                 ),
                 reducer: userDetailReducer,
-                environment: UserDetailEnvironment()
+                environment: UserDetailEnvironment(userInfo: UserInfoEnvironment())
             )
         )
     }

@@ -34,7 +34,7 @@ struct EditUserView_Previews: PreviewProvider {
     static var previews: some View {
         EditUserView(
             store: Store(
-                initialState: EditUserState(user: User.dummy),
+                initialState: EditUserState(userInfo: UserInfoState(user: User.dummy)),
                 reducer: editUserReducer,
                 environment: EditUserEnvironment(userInfo: UserInfoEnvironment())
             )

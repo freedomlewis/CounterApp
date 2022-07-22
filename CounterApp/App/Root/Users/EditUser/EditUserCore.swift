@@ -8,13 +8,7 @@
 import ComposableArchitecture
 
 struct EditUserState: Equatable {
-    var user: User
     var userInfo: UserInfoState
-    
-    init(user: User) {
-        self.user = user
-        self.userInfo = UserInfoState(user: user)
-    }
 }
 
 enum EditUserAction: Equatable {
@@ -32,7 +26,6 @@ let editUserReducer = Reducer<EditUserState, EditUserAction, EditUserEnvironment
     Reducer{ state, action, _ in
         switch action {
         case .onSaveTapped:
-            state.user = state.userInfo.user
             return .none
         case .onCancelTapped:
             return .none

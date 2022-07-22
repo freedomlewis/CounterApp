@@ -60,13 +60,15 @@ let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment>.combine(
             return .none
 
         case let .setNavigation(selection: .some(id)):
-            let detailState = UserDetailState(user: state.users[id: id]!)
+            let detailState = UserDetailState(
+                userInfo: UserInfoState(user: state.users[id: id]!, disabled: true)
+            )
             state.selection = Identified(detailState, id: id)
             return .none
 
         case .setNavigation(selection: .none):
             if let selection = state.selection, let userDetail = selection.value {
-                state.users[id: selection.id] = userDetail.user
+                state.users[id: selection.id] = userDetail.userInfo.user
             }
             state.selection = nil
             return .none
@@ -103,6 +105,6 @@ struct UsersEnvironment {
 
 extension UsersEnvironment {
     var userDetail: UserDetailEnvironment {
-        .init()
+        .init(userInfo: UserInfoEnvironment())
     }
 }
