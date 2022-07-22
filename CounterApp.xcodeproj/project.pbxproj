@@ -122,8 +122,6 @@
 		D6BCE3C5287D346D000660FA /* CounterDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D6BCE3C2287D3374000660FA /* CounterCore.swift */,
-				D6D9B814287534FD00FB5FCD /* CounterView.swift */,
 				D6C69C32288A62DB00894C24 /* CounterDetailCore.swift */,
 				D6C69C30288A62D000894C24 /* CounterDetailView.swift */,
 			);
@@ -153,6 +151,8 @@
 		D6C69C34288A7E0400894C24 /* Counter */ = {
 			isa = PBXGroup;
 			children = (
+				D6BCE3C2287D3374000660FA /* CounterCore.swift */,
+				D6D9B814287534FD00FB5FCD /* CounterView.swift */,
 			);
 			path = Counter;
 			sourceTree = "<group>";

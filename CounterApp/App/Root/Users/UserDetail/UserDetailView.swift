@@ -14,7 +14,11 @@ struct UserDetailView: View {
     var body: some View {
         WithViewStore(self.store.scope(state: \.viewState, action: UserDetailAction.view)) { viewStore in
             VStack(alignment: .leading) {
-                Button("Edit User Info") { viewStore.send(.setEditActive(true)) }.padding(.bottom, 10)
+                Button("Edit User Info") {
+                    viewStore.send(.setEditActive(true))
+                }
+                .font(.title)
+                .padding(.bottom, 10)
 
                 UserInfoView(store: self.store.scope(state: \.userInfo, action: UserDetailAction.userInfoView))
 

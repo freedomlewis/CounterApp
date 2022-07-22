@@ -17,6 +17,7 @@ enum UserDetailAction: Equatable {
     case edit(EditUserAction)
     case activeEdit
     case deActiveEdit
+    case userInfoChanged(User)
 }
 
 let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnvironment>.combine(
@@ -47,15 +48,13 @@ let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnv
             state.editUserState = nil
             return .none
             
-        case .edit(.onSaveTapped):
-            guard let editUser = state.editUserState?.userInfo.user else {
-                return .none
-            }
-            state.userInfo.user = editUser
+        case .edit(.cancelSaveUser):
             return Effect(value: .deActiveEdit)
-            
-        case .edit(.onCancelTapped):
-            return Effect(value: .deActiveEdit)
+        
+        case let .edit(.didSaveUser(user)):
+            state.userInfo.user = user
+            state.editUserState = nil
+            return Effect(value: .userInfoChanged(user))
             
         default:
             return .none

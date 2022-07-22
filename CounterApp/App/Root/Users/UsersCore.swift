@@ -56,9 +56,6 @@ let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment>.combine(
         ),
     Reducer { state, action, env in
         switch action {
-        case .detail:
-            return .none
-
         case let .setNavigation(selection: .some(id)):
             let detailState = UserDetailState(
                 userInfo: UserInfoState(user: state.users[id: id]!, disabled: true)
@@ -67,9 +64,6 @@ let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment>.combine(
             return .none
 
         case .setNavigation(selection: .none):
-            if let selection = state.selection, let userDetail = selection.value {
-                state.users[id: selection.id] = userDetail.userInfo.user
-            }
             state.selection = nil
             return .none
 
@@ -84,6 +78,13 @@ let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment>.combine(
                 return .none
             }
             state.users[id: firstId]?.firstName = firstName
+            return .none
+            
+        case let .detail(.userInfoChanged(user)):
+            state.users[id: user.id] = user
+            return .none
+            
+        case .detail:
             return .none
         }
     }

@@ -15,6 +15,8 @@ enum EditUserAction: Equatable {
     case userInfoView(UserInfoAction)
     case onSaveTapped
     case onCancelTapped
+    case didSaveUser(User)
+    case cancelSaveUser
 }
 
 struct EditUserEnvironment {
@@ -26,9 +28,9 @@ let editUserReducer = Reducer<EditUserState, EditUserAction, EditUserEnvironment
     Reducer{ state, action, _ in
         switch action {
         case .onSaveTapped:
-            return .none
+            return Effect(value: .didSaveUser(state.userInfo.user))
         case .onCancelTapped:
-            return .none
+            return Effect(value: .cancelSaveUser)
         default:
             return .none
         }
