@@ -27,15 +27,6 @@ struct UsersState: Equatable {
     }
 }
 
-struct User: Equatable, Identifiable {
-    var id: UUID = .init()
-    var firstName: String
-    var lastName: String
-    var email: String
-    var age: Int
-    var job: String
-}
-
 enum UsersAction: Equatable {
     case detail(UserDetailAction)
     case setNavigation(selection: UUID?)
