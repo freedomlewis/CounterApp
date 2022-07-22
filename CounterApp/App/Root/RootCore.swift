@@ -8,13 +8,14 @@
 import ComposableArchitecture
 
 struct RootState: Equatable {
-    var counter: CounterState?
+    var counter: Int = 0
+    var counterDetail: CounterDetailState?
     var lock: LockState?
     var users: UsersState?
 }
 
 enum RootAction: Equatable {
-    case counter(CounterAction)
+    case counterDetail(CounterDetailAction)
     case lock(LockAction)
     case users(UsersAction)
     case activeCounterDetail
@@ -27,12 +28,12 @@ enum RootAction: Equatable {
 }
 
 let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
-    counterReducer
+    counterDetailReducer
         .optional()
         .pullback(
-            state: \.counter,
-            action: /RootAction.counter,
-            environment: \.counter
+            state: \.counterDetail,
+            action: /RootAction.counterDetail,
+            environment: \.counterDetail
         ),
     
     lockReducer
@@ -55,11 +56,13 @@ let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
         
         switch action {
         case .activeCounterDetail:
-            state.counter = .init()
+            state.counterDetail = .init(
+                counter: CounterState(count: state.counter, min: -10, max: 10)
+            )
             return .none
             
         case .resetCounterDetail:
-            state.counter = nil
+            state.counterDetail = nil
             return .none
             
         case .activeLock:
@@ -85,6 +88,10 @@ let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
             state.users = nil
             return .none
             
+        case let .counterDetail(.didSetValue(value)):
+            state.counter = value
+            return .none
+            
         default:
             return .none
         }
@@ -97,8 +104,8 @@ struct RootEnvironment {
 }
 
 extension RootEnvironment {
-    var counter: CounterEnviroment {
-        counterEnv
+    var counterDetail: CounterDetailEnviroment {
+        .init(counter: counterEnv)
     }
     
     var lock: LockEnvironment {

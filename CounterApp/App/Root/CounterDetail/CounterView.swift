@@ -27,10 +27,6 @@ struct CounterView: View {
                 }
             }
             .font(Font.title)
-            .alert(
-                self.store.scope(state: \.alert),
-                dismiss: .alertDismissed
-            )
         }
     }
 }

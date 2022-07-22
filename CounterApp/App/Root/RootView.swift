@@ -21,12 +21,12 @@ struct RootView: View {
                     isActive: viewStore.binding(get: \.counterDetailActive, send: ViewAction.setCounterDetailActive),
                     destination: {
                         IfLetStore(
-                            self.store.scope(state: \.counter, action: RootAction.counter),
-                            then: CounterView.init
+                            self.store.scope(state: \.counterDetail, action: RootAction.counterDetail),
+                            then: CounterDetailView.init
                         )
                     }
                 )
-                .padding()
+                    .padding()
                 
                 Button("Show Lock View") { viewStore.send(.setLockActive(true)) }
                 
@@ -40,7 +40,7 @@ struct RootView: View {
                         )
                     }
                 )
-                .padding()
+                    .padding()
             }
             .font(Font.title2)
             .sheet(
@@ -73,8 +73,8 @@ extension RootView {
 extension RootState {
     var view: RootView.ViewState {
         .init(
-            counter: "\(counter?.count ?? 0)",
-            counterDetailActive: counter != nil,
+            counter: "\(counter)",
+            counterDetailActive: counterDetail != nil,
             lockActive: lock != nil,
             usersActive: users != nil
         )
@@ -109,12 +109,12 @@ struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView(store: Store(
             initialState: RootState(
-                counter: .init(),
+                counterDetail: .init(counter: CounterState()),
                 lock: .init(code: [9, 5, 7]),
                 users: .init(userNum: 5)
             ),
             reducer: rootReducer,
-            environment: .init(
+            environment: RootEnvironment(
                 counterEnv: .init(
                     queue: DispatchQueue.main.eraseToAnyScheduler(),
                     increment: CounterClient.Interface.live.increment,

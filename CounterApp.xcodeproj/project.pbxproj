@@ -14,6 +14,8 @@
 		D6BCE3C8287D61AA000660FA /* LockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BCE3C7287D61AA000660FA /* LockView.swift */; };
 		D6C69C2D288A3C7200894C24 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C69C2C288A3C7200894C24 /* UserInfoView.swift */; };
 		D6C69C2F288A3C7D00894C24 /* UserInfoCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C69C2E288A3C7D00894C24 /* UserInfoCore.swift */; };
+		D6C69C31288A62D000894C24 /* CounterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C69C30288A62D000894C24 /* CounterDetailView.swift */; };
+		D6C69C33288A62DB00894C24 /* CounterDetailCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C69C32288A62DB00894C24 /* CounterDetailCore.swift */; };
 		D6D9B813287534FD00FB5FCD /* CounterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B812287534FD00FB5FCD /* CounterApp.swift */; };
 		D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D9B814287534FD00FB5FCD /* CounterView.swift */; };
 		D6D9B817287534FE00FB5FCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6D9B816287534FE00FB5FCD /* Assets.xcassets */; };
@@ -63,6 +65,8 @@
 		D6BCE3C7287D61AA000660FA /* LockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockView.swift; sourceTree = "<group>"; };
 		D6C69C2C288A3C7200894C24 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		D6C69C2E288A3C7D00894C24 /* UserInfoCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCore.swift; sourceTree = "<group>"; };
+		D6C69C30288A62D000894C24 /* CounterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterDetailView.swift; sourceTree = "<group>"; };
+		D6C69C32288A62DB00894C24 /* CounterDetailCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterDetailCore.swift; sourceTree = "<group>"; };
 		D6D9B80F287534FD00FB5FCD /* CounterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CounterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D9B812287534FD00FB5FCD /* CounterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterApp.swift; sourceTree = "<group>"; };
 		D6D9B814287534FD00FB5FCD /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
@@ -115,13 +119,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D6BCE3C5287D346D000660FA /* Counter */ = {
+		D6BCE3C5287D346D000660FA /* CounterDetail */ = {
 			isa = PBXGroup;
 			children = (
 				D6BCE3C2287D3374000660FA /* CounterCore.swift */,
 				D6D9B814287534FD00FB5FCD /* CounterView.swift */,
+				D6C69C32288A62DB00894C24 /* CounterDetailCore.swift */,
+				D6C69C30288A62D000894C24 /* CounterDetailView.swift */,
 			);
-			path = Counter;
+			path = CounterDetail;
 			sourceTree = "<group>";
 		};
 		D6BCE3C6287D3477000660FA /* App */ = {
@@ -142,6 +148,13 @@
 				D6BCE3C7287D61AA000660FA /* LockView.swift */,
 			);
 			path = Lock;
+			sourceTree = "<group>";
+		};
+		D6C69C34288A7E0400894C24 /* Counter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Counter;
 			sourceTree = "<group>";
 		};
 		D6D9B806287534FD00FB5FCD = {
@@ -217,6 +230,7 @@
 		D6E8BD2E2888E5F500B8EB8D /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D6C69C34288A7E0400894C24 /* Counter */,
 				D6E8BD4E288A3C1B00B8EB8D /* UserInfo */,
 			);
 			path = Components;
@@ -271,7 +285,7 @@
 			children = (
 				D6E8BD4528896D3000B8EB8D /* RootCore.swift */,
 				D6E8BD4328896D1F00B8EB8D /* RootView.swift */,
-				D6BCE3C5287D346D000660FA /* Counter */,
+				D6BCE3C5287D346D000660FA /* CounterDetail */,
 				D6BCE3C9287D61D6000660FA /* Lock */,
 				D6E8BD292887E71F00B8EB8D /* Users */,
 			);
@@ -440,12 +454,14 @@
 				D6E8BD4428896D1F00B8EB8D /* RootView.swift in Sources */,
 				D6D9B815287534FD00FB5FCD /* CounterView.swift in Sources */,
 				D6BCE3C3287D3374000660FA /* CounterCore.swift in Sources */,
+				D6C69C31288A62D000894C24 /* CounterDetailView.swift in Sources */,
 				D6E8BD2D2888023600B8EB8D /* UserDetailView.swift in Sources */,
 				D6E8BD492889814700B8EB8D /* CounterClient.swift in Sources */,
 				D6E8BD4B2889815100B8EB8D /* CounterClientLive.swift in Sources */,
 				D6E8BD352888EFAF00B8EB8D /* RandomGenerator.swift in Sources */,
 				D6BCE3C1287D19EA000660FA /* AppCore.swift in Sources */,
 				D6E8BD332888EF5E00B8EB8D /* Randoms.swift in Sources */,
+				D6C69C33288A62DB00894C24 /* CounterDetailCore.swift in Sources */,
 				D6E8BD4D2889836F00B8EB8D /* AppEnvironmentLive.swift in Sources */,
 				D6E8BD372888F02F00B8EB8D /* RandomGeneratorLive.swift in Sources */,
 				D6E8BD412889585800B8EB8D /* UserDetailCore.swift in Sources */,
