@@ -50,7 +50,7 @@ let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
             action: /RootAction.users,
             environment: \.users
         ),
-    Reducer { state, action, _ in
+    Reducer { state, action, env in
         switch action {
         case .activeCounterDetail:
             state.counter = .init()
@@ -69,7 +69,7 @@ let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
             return .none
             
         case .activeUsers:
-            state.users = .init()
+            state.users = .init(userNum: 16)
             return .none
 
         case .resetUsers:

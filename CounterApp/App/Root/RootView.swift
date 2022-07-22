@@ -111,7 +111,7 @@ struct RootView_Previews: PreviewProvider {
             initialState: RootState(
                 counter: .init(),
                 lock: .init(code: [9, 5, 7]),
-                users: .init()
+                users: .init(userNum: 5)
             ),
             reducer: rootReducer,
             environment: .init(

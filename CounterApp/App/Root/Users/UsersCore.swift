@@ -9,38 +9,22 @@ import ComposableArchitecture
 import IdentifiedCollections
 
 struct UsersState: Equatable {
-    var users: IdentifiedArrayOf<User> = [
-        User(
-            firstName: "James",
-            lastName: "Smith",
-            email: "john@gmail.com",
-            age: 14,
-            job: "Student"
-        ),
-        User(
-            firstName: "Michael",
-            lastName: "Smith",
-            email: "michael@gmail.com",
-            age: 30,
-            job: "Engineer"
-        ),
-        User(
-            firstName: "Mary",
-            lastName: "Smith",
-            email: "mary@gmail.com",
-            age: 29,
-            job: "Teacher"
-        ),
-        User(
-            firstName: "David",
-            lastName: "Smith",
-            email: "david@gmail.com",
-            age: 60,
-            job: "Farmer"
-        )
-    ]
-
+    var users: IdentifiedArrayOf<User>
     var selection: Identified<User.ID, UserDetailState?>?
+    
+    init(userNum: Int) {
+        self.users = .init(
+            uniqueElements: (0..<userNum).map{ _ in
+                User(
+                    firstName: Randoms.randomFakeFirstName(),
+                    lastName: Randoms.randomFakeLastName(),
+                    email: "\(String.random(ofLength: 6))@gmail.com",
+                    age: Int.random(10, 100),
+                    job: Randoms.randomFakeTitle()
+                )
+            }
+        )
+    }
 }
 
 struct User: Equatable, Identifiable {
