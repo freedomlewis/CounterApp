@@ -12,8 +12,10 @@ struct UserDetailView: View {
     let store: Store<UserDetailState, UserDetailAction>
     
     var body: some View {
-        WithViewStore(self.store.scope(state: \.viewState)) { viewStore in
-            VStack(alignment: .leading, spacing: 10) {
+        WithViewStore(self.store.scope(state: \.viewState, action: UserDetailAction.view)) { viewStore in
+            VStack(alignment: .leading) {
+                Button("Edit User Info") { viewStore.send(.setEditActive(true)) }.padding(.bottom, 10)
+                
                 HStack {
                     Text("Name: ")
                     Text("\(viewStore.name)")
@@ -40,26 +42,19 @@ struct UserDetailView: View {
                     Text("\(viewStore.job)")
                 }
                 
-                Button("Edit User Info") {
-                    viewStore.send(.activeEdit)
-                }
                 Spacer()
             }
             .padding(.leading)
             .sheet(
                 isPresented: viewStore.binding(
                     get: \.isPresent,
-                    send: { _ in .deActiveEdit }
+                    send: ViewAction.setEditActive
                 )
             ) {
                 IfLetStore(
-                    self.store.scope(
-                        state: \.editUserState,
-                        action: UserDetailAction.edit
-                    )
-                ) {
-                    EditUserView(store: $0)
-                }
+                    self.store.scope(state: \.editUserState, action: UserDetailAction.edit),
+                    then: EditUserView.init
+                )
             }
         }
     }
@@ -73,6 +68,10 @@ extension UserDetailView {
         var job: String
         var isPresent: Bool
     }
+    
+    enum ViewAction: Equatable {
+        case setEditActive(Bool)
+    }
 }
 
 extension UserDetailState {
@@ -84,6 +83,17 @@ extension UserDetailState {
             job: user.job,
             isPresent: editUserState != nil
         )
+    }
+}
+
+extension UserDetailAction {
+    static func view(_ localAction: UserDetailView.ViewAction) -> UserDetailAction {
+        switch localAction {
+        case .setEditActive(true):
+            return .activeEdit
+        case .setEditActive(false):
+            return .deActiveEdit
+        }
     }
 }
 

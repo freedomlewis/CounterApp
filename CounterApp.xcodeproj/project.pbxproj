@@ -204,8 +204,8 @@
 			children = (
 				D6E8BD3C2889573F00B8EB8D /* UsersCore.swift */,
 				D6E8BD2A2887E74700B8EB8D /* UsersView.swift */,
-				D6E8BD3B2889571F00B8EB8D /* EditUser */,
 				D6E8BD3A2889571200B8EB8D /* UserDetail */,
+				D6E8BD3B2889571F00B8EB8D /* EditUser */,
 			);
 			path = Users;
 			sourceTree = "<group>";
