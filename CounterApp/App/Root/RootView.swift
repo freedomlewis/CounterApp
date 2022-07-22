@@ -26,7 +26,7 @@ struct RootView: View {
                         )
                     }
                 )
-                    .padding()
+                .padding()
                 
                 Button("Show Lock View") { viewStore.send(.setLockActive(true)) }
                 
@@ -40,7 +40,7 @@ struct RootView: View {
                         )
                     }
                 )
-                    .padding()
+                .padding()
             }
             .font(Font.title2)
             .sheet(
