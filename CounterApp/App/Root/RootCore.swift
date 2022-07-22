@@ -51,6 +51,8 @@ let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
             environment: \.users
         ),
     Reducer { state, action, env in
+        enum CancelId{}
+        
         switch action {
         case .activeCounterDetail:
             state.counter = .init()
@@ -70,13 +72,14 @@ let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
             
         case .activeUsers:
             state.users = .init(userNum: 16)
-            return .none
+            return .cancel(id: CancelId.self)
 
         case .resetUsers:
             // delay for the userReducer cancel the randomGenerator with the onDisappear action
             return Effect(value: .resetUsersComplete)
-                .delay(for: 1, scheduler: DispatchQueue.main)
+                .delay(for: 0.1, scheduler: DispatchQueue.main)
                 .eraseToEffect()
+                .cancellable(id: CancelId.self)
         
         case .resetUsersComplete:
             state.users = nil
