@@ -40,7 +40,6 @@ let userDetailReducer = Reducer<UserDetailState, UserDetailAction, UserDetailEnv
         switch action {
         case .activeEdit:
             var editUserInfo = state.userInfo
-            editUserInfo.disabled = false
             state.editUserState = EditUserState(userInfo: editUserInfo)
             return .none
             

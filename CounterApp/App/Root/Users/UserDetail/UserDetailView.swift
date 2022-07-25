@@ -20,7 +20,10 @@ struct UserDetailView: View {
                 .font(.title)
                 .padding(.bottom, 10)
 
-                UserInfoView(store: self.store.scope(state: \.userInfo, action: UserDetailAction.userInfoView))
+                UserInfoView(
+                    store: self.store.scope(state: \.userInfo, action: UserDetailAction.userInfoView)
+                )
+                .disabled(true)
 
                 Spacer()
             }
@@ -72,7 +75,7 @@ struct UserDetailView_Previews: PreviewProvider {
         UserDetailView(
             store: Store(
                 initialState: UserDetailState(
-                    userInfo: UserInfoState(user: User.dummy, disabled: true)
+                    userInfo: UserInfoState(user: User.dummy)
                 ),
                 reducer: userDetailReducer,
                 environment: UserDetailEnvironment(userInfo: UserInfoEnvironment())

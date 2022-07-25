@@ -13,8 +13,8 @@ struct EditUserView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            VStack{
-                HStack{
+            VStack {
+                HStack {
                     Button("Cancel") { viewStore.send(.onCancelTapped) }
                     
                     Spacer()
@@ -22,7 +22,9 @@ struct EditUserView: View {
                     Button("Save") { viewStore.send(.onSaveTapped) }
                 }
                 
-                UserInfoView(store: self.store.scope(state: \.userInfo, action: EditUserAction.userInfoView))
+                UserInfoView(
+                    store: self.store.scope(state: \.userInfo, action: EditUserAction.userInfoView)
+                )
                 
                 Spacer()
             }.padding()

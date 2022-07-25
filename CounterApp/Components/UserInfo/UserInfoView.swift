@@ -8,17 +8,18 @@
 import ComposableArchitecture
 import SwiftUI
 
+
 struct UserInfoView: View {
     let store: Store<UserInfoState, UserInfoAction>
     
     var body: some View {
-        WithViewStore(self.store.scope(state: \.viewState)) { viewStore in
+        WithViewStore(self.store) { viewStore in
             VStack {
                 HStack {
                     Text("Frist Name: ").padding(.trailing)
                     TextField(
                         "",
-                        text: viewStore.binding(get: \.firstName, send: UserInfoAction.firstNameChanged)
+                        text: viewStore.binding(\UserInfoState.$user.firstName)
                     )
                 }
                 
@@ -26,7 +27,7 @@ struct UserInfoView: View {
                     Text("Last Name: ").padding(.trailing)
                     TextField(
                         "",
-                        text: viewStore.binding(get: \.lastName, send: UserInfoAction.lastNameChanged)
+                        text: viewStore.binding(\UserInfoState.$user.lastName)
                     )
                 }
                 
@@ -34,7 +35,7 @@ struct UserInfoView: View {
                     Text("Email: ").padding(.trailing)
                     TextField(
                         "",
-                        text: viewStore.binding(get: \.email, send: UserInfoAction.emailChanged)
+                        text: viewStore.binding(\UserInfoState.$user.email)
                     ).keyboardType(.emailAddress)
                 }
                 
@@ -42,7 +43,8 @@ struct UserInfoView: View {
                     Text("Age: ").padding(.trailing)
                     TextField(
                         "",
-                        text: viewStore.binding(get: \.age, send: UserInfoAction.ageChanged)
+                        value: viewStore.binding(\UserInfoState.$user.age),
+                        formatter: NumberFormatter()
                     ).keyboardType(.numberPad)
                 }
                 
@@ -50,35 +52,11 @@ struct UserInfoView: View {
                     Text("Job: ").padding(.trailing)
                     TextField(
                         "",
-                        text: viewStore.binding(get: \.job, send: UserInfoAction.jobChanged)
+                        text: viewStore.binding(\UserInfoState.$user.job)
                     )
                 }
-            }.disabled(viewStore.disabled)
+            }
         }
-    }
-}
-
-extension UserInfoView {
-    struct State: Equatable {
-        var firstName: String
-        var lastName: String
-        var email: String
-        var age: String
-        var job: String
-        var disabled: Bool
-    }
-}
-
-extension UserInfoState {
-    var viewState: UserInfoView.State {
-        .init(
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            age: String(user.age),
-            job: user.job,
-            disabled: self.disabled
-        )
     }
 }
 
@@ -86,10 +64,7 @@ struct UserInfoView_Previews: PreviewProvider {
     static var previews: some View {
         UserInfoView(
             store: Store(
-                initialState: UserInfoState(
-                    user: User.dummy,
-                    disabled: true
-                ),
+                initialState: UserInfoState(user: User.dummy),
                 reducer: userInfoReducer,
                 environment: UserInfoEnvironment()
             )

@@ -49,7 +49,7 @@ let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment>.combine(
         switch action {
         case let .setNavigation(selection: .some(id)):
             let detailState = UserDetailState(
-                userInfo: UserInfoState(user: state.users[id: id]!, disabled: true)
+                userInfo: UserInfoState(user: state.users[id: id]!)
             )
             state.selection = Identified(detailState, id: id)
             return .none
