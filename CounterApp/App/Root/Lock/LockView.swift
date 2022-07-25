@@ -32,17 +32,13 @@ struct LockView: View {
 struct LockView_Previews: PreviewProvider {
     static var previews: some View {
         LockView(store: Store(
-            initialState: LockState(
-                counters: [CounterState(),
-                           CounterState(),
-                           CounterState()]
-            ),
+            initialState: .init(code: [9, 5, 7]),
             reducer: lockReducer,
             environment: LockEnvironment(counter: CounterEnviroment(
                 queue: DispatchQueue.main.eraseToAnyScheduler(),
                 increment: { value, _ in
                     Effect(value: value + 1)
-                }, decrement: { value, _ -> Effect<Int, ServiceError> in
+                }, decrement: { value, _ in
                     Effect(value: value - 1)
                 }
             ))

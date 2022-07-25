@@ -13,72 +13,19 @@ struct AppView: View {
     let store: Store<AppState, AppAction>
 
     var body: some View {
-        WithViewStore(store.scope(state: \.viewState)) { viewStore in
             NavigationView {
-                VStack {
-                    Text("\(viewStore.counter)")
-
-                    NavigationLink(
-                        "Goto edit page",
-                        destination: CounterView(
-                            store: self.store.scope(
-                                state: { appState in appState.counter },
-                                action: { localAction in AppAction.counter(localAction) }
-                            )
-                        )
-                    )
-                    .padding()
-
-                    Button("Show Lock View") {
-                        viewStore.send(.setLockSheet(isPresented: true))
-                    }
-                }
-                .font(Font.title2)
+                RootView(store: store.scope(state: \.root, action: AppAction.root))
             }
-            .sheet(
-                isPresented: viewStore.binding(
-                    get: \.isShowLockView,
-                    send: AppAction.setLockSheet(isPresented:)
-                )
-            ) {
-                LockView(
-                    store: self.store.scope(
-                        state: \.lock,
-                        action: AppAction.lock
-                    )
-                )
-            }
-        }
-    }
-}
-
-extension AppView {
-    struct ViewState: Equatable {
-        let counter: String
-        let isShowLockView: Bool
-    }
-}
-
-extension AppState {
-    var viewState: AppView.ViewState {
-        .init(
-            counter: "\(counter.count)",
-            isShowLockView: isPresentLock
-        )
+            .navigationViewStyle(.stack)
     }
 }
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
         AppView(store: Store(
-            initialState: AppState(
-                counter: CounterState(),
-                lock: LockState(
-                    counters: [CounterState(), CounterState(), CounterState()]
-                )
-            ),
+            initialState: AppState(),
             reducer: appReducer,
-            environment: AppEnviroment()
+            environment: AppEnvironment()
         ))
     }
 }
