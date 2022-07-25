@@ -120,7 +120,8 @@ struct RootView_Previews: PreviewProvider {
                     increment: CounterClient.Interface.live.increment,
                     decrement: CounterClient.Interface.live.decrement
                 ),
-                firstNameGenerator: RandomGenerator.Interface.live.generateFirstName
+                firstNameGenerator: RandomGenerator.Interface.live.generateFirstName,
+                cancelNameGenrator: RandomGenerator.Interface.live.cancelFirstNameGenerator
             )
         ))
     }

@@ -11,7 +11,9 @@ import ComposableArchitecture
 struct RandomGenerator {
     struct Interface {
         var generateFirstName: GenerateFirstName
+        var cancelFirstNameGenerator: CancelFirstNameGenerator
     }
     
     typealias GenerateFirstName = () -> Effect<String, Never>
+    typealias CancelFirstNameGenerator = () -> Effect<Never, Never>
 }

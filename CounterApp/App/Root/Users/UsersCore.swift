@@ -62,7 +62,7 @@ let usersReducer = Reducer<UsersState, UsersAction, UsersEnvironment>.combine(
             return env.randomFirstName().map(UsersAction.setFirstName).eraseToEffect()
 
         case .onDisappear:
-            return .cancel(id: RandomGeneratorTimerId.self)
+            return env.cancelGenerator().fireAndForget()
 
         case let .setFirstName(firstName):
             guard let firstId = state.users.first?.id else {
@@ -93,6 +93,7 @@ extension User {
 
 struct UsersEnvironment {
     var randomFirstName: RandomGenerator.GenerateFirstName
+    var cancelGenerator: RandomGenerator.CancelFirstNameGenerator
 }
 
 extension UsersEnvironment {

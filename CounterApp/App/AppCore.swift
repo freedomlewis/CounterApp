@@ -37,7 +37,8 @@ extension AppEnvironment {
                 increment: counterClient.increment,
                 decrement: counterClient.decrement
             ),
-            firstNameGenerator: randomClient.generateFirstName
+            firstNameGenerator: randomClient.generateFirstName,
+            cancelNameGenrator: randomClient.cancelFirstNameGenerator
         )
     }
 }

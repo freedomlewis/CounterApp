@@ -82,7 +82,8 @@ struct UsersView_Previews: PreviewProvider {
                 initialState: UsersState(userNum: 5),
                 reducer: usersReducer,
                 environment: UsersEnvironment(
-                    randomFirstName: { .none }
+                    randomFirstName: { .none },
+                    cancelGenerator: { .none }
                 )
             )
         )

@@ -101,6 +101,7 @@ let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
 struct RootEnvironment {
     let counterEnv: CounterEnviroment
     let firstNameGenerator: RandomGenerator.GenerateFirstName
+    let cancelNameGenrator: RandomGenerator.CancelFirstNameGenerator
 }
 
 extension RootEnvironment {
@@ -113,6 +114,9 @@ extension RootEnvironment {
     }
     
     var users: UsersEnvironment {
-        .init(randomFirstName: firstNameGenerator)
+        .init(
+            randomFirstName: firstNameGenerator,
+            cancelGenerator: cancelNameGenrator
+        )
     }
 }

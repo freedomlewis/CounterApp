@@ -21,9 +21,12 @@ extension RandomGenerator.Interface {
                     Randoms.randomFakeFirstName()
                 }
                 .eraseToEffect()
+            },
+            cancelFirstNameGenerator: {
+                Effect<Never, Never>.cancel(id: RandomGeneratorTimerId.self)
             }
         )
     }
+    
+    private enum RandomGeneratorTimerId {}
 }
-
-enum RandomGeneratorTimerId {}
